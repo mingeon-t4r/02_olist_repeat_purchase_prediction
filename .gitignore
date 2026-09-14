@@ -1,0 +1,22 @@
+# Python 임시 파일
+__pycache__/
+*.pyc
+
+# Jupyter 임시 저장 폴더
+.ipynb_checkpoints/
+
+# Python 가상환경
+.venv/
+venv/
+
+# 환경변수 및 비밀정보
+.env
+.vscode
+
+# 원본 및 중간 데이터
+data/raw/*
+data/processed/*
+
+# 운영체제 임시 파일
+.DS_Store
+Thumbs.db
