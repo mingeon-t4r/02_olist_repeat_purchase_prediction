@@ -17,4 +17,4 @@ Candidate:
 customer_unique_id = one customer
 
 Status:
-To be confirmed after duplicate and relationship audit.
+Confirmed

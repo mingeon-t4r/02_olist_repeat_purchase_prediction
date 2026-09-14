@@ -11,7 +11,7 @@ venv/
 
 # 환경변수 및 비밀정보
 .env
-.vscode
+.vscode/
 
 # 원본 및 중간 데이터
 data/raw/*
