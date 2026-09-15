@@ -28,25 +28,23 @@ CRM / Retention Manager
 
 고객 1명당 1행
 
-Olist 데이터에서는 동일 고객의 주문 이력을 연결할 수 있는 customer_unique_id를 고객 단위 분석 키 후보로 사용한다.
+Olist 데이터에서는 동일 고객의 주문 이력을 연결할 수 있는 customer_unique_id를 고객 단위 분석 키로 사용한다.
 
 ## Prediction Snapshot
 
-첫 번째 유효 구매 시점
+고객의 첫 번째 payment-approved order 시점 (order_approved_at)
 
-정확한 timestamp와 유효 주문 기준은
-원본 데이터 audit 이후 확정한다.
+order_approved_at이 기록되지 않은 주문은 primary analysis의 purchase event에서 제외한다.
 
 ## Outcome
 
-첫 번째 유효 구매 이후 1~90일 이내
-추가 유효 구매 발생 여부
+첫 번째 승인 주문 이후 90일 이내에 추가 승인 주문이 발생했는지 여부
 
 repeat_90d = 1:
-90일 이내 추가 구매 존재
+90일 이내 추가 payment-approved order 존재
 
 repeat_90d = 0:
-90일 전체 관찰 기간 동안 추가 구매 없음
+90일 전체 관찰 기간 동안 추가 승인 주문 없음
 
 ## Eligibility
 

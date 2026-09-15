@@ -18,3 +18,39 @@ customer_unique_id = one customer
 
 Status:
 Confirmed
+
+## Analytical Order Base
+
+Grain:
+one row per order_id
+
+Source:
+orders
++ customers
++ aggregated order_items
++ aggregated order_payments
+
+Primary Key:
+order_id
+
+Customer Key:
+customer_unique_id
+
+Primary Event:
+order_approved_at
+
+Important Fields:
+
+| Field | Meaning |
+|---|---|
+| order_id | order identifier |
+| customer_unique_id | customer-level analysis key |
+| order_approved_at | prediction event timestamp |
+| is_approved_order | primary purchase-event flag |
+| item_count | number of item rows in order |
+| distinct_product_count | distinct products in order |
+| seller_count | distinct sellers in order |
+| item_value | sum of item prices |
+| freight_value | sum of freight charges |
+| payment_value | sum of payment records |
+| max_payment_installments | maximum installments used |

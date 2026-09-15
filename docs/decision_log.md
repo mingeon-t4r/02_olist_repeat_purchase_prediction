@@ -40,26 +40,21 @@ Confirmed
 
 ## D003 — Prediction Snapshot
 
-Candidate Decision:
-Use the first valid purchase timestamp.
+Decision:
+Use order_approved_at as the primary prediction snapshot.
 
-Candidate fields:
-- order_purchase_timestamp
-- order_approved_at
+Reason:
+Payment approval provides an operationally identifiable point at which a first purchase has been accepted.
 
-Audit Finding:
-order_approved_at contains 160 missing values:
-- canceled: 141
-- delivered: 14
-- created: 5
+Using final delivery status to define the prediction snapshot would rely on information generated later in the order lifecycle.
 
-Implication:
-order_approved_at cannot be adopted as the prediction
-snapshot without defining how valid delivered orders
-with missing approval timestamps will be handled.
+Data Quality:
+160 orders have no recorded order_approved_at, including 14 orders whose final status is delivered.
+
+These rows are excluded from the primary definition rather than imputing an unobserved approval timestamp.
 
 Status:
-Pending
+Confirmed
 
 ---
 
@@ -67,6 +62,54 @@ Pending
 
 Decision:
 Only customers with a complete 90-day outcome window will receive a repeat_90d label.
+
+Status:
+Confirmed
+
+---
+
+## D005 — Valid Purchase Event
+
+Decision:
+A purchase event is defined as an order with a non-null order_approved_at.
+
+Reason:
+The definition is aligned with the prediction snapshot and avoids relying on future final order status.
+
+Limitation:
+Some payment-approved orders may later be canceled.
+
+A fulfilled-order definition may be evaluated later as a sensitivity analysis.
+
+Status:
+Confirmed
+
+---
+
+## D006 — Observation End
+
+Decision:
+Use the latest observed order_approved_at as the end of the outcome observation period.
+
+Observation End:
+2018-09-03 17:40:06
+
+90-Day Eligibility Cutoff:
+2018-06-05 17:40:06
+
+Status:
+Confirmed
+
+---
+
+## D007 — Order-Level Aggregation
+
+Decision:
+Aggregate order_items and order_payments to order_id before joining them to orders.
+
+Reason:
+Both source tables contain multiple rows per order.
+Pre-aggregation prevents row multiplication and inflated transaction totals.
 
 Status:
 Confirmed
