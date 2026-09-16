@@ -54,3 +54,26 @@ Important Fields:
 | freight_value | sum of freight charges |
 | payment_value | sum of payment records |
 | max_payment_installments | maximum installments used |
+
+## Customer 90-Day Outcome Base
+
+Grain:
+one row per customer_unique_id
+
+Source:
+order_base
+
+Primary Key:
+customer_unique_id
+
+| Field | Meaning |
+|---|---|
+| customer_unique_id | customer analysis key |
+| first_order_id | first approved order |
+| first_approved_at | prediction snapshot |
+| first_purchase_month | cohort month |
+| observation_end | last observed approval timestamp |
+| eligibility_cutoff | latest first purchase eligible for 90-day outcome |
+| is_eligible_90d | whether full 90-day outcome is observable |
+| second_approved_at | earliest repeat approval within 90 days |
+| repeat_90d | 90-day repeat-purchase label |

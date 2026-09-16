@@ -113,3 +113,37 @@ Pre-aggregation prevents row multiplication and inflated transaction totals.
 
 Status:
 Confirmed
+
+---
+
+## D008 — 90-Day Repeat-Purchase Label
+
+Decision:
+repeat_90d is defined using payment-approved orders.
+
+repeat_90d = 1 when another approved order occurs strictly after the first approval timestamp and within the following 90 days.
+
+repeat_90d = 0 when the full 90-day window is observable and no additional approved order occurs.
+
+repeat_90d remains NULL when the full outcome window cannot be observed.
+
+Reason:
+Treating recent customers as non-repeaters would systematically understate repeat purchase and bias recent cohorts.
+
+Status:
+Confirmed
+
+---
+
+## D009 — Same-Day Repeat Orders
+
+Decision:
+A separate order approved later than the first approval timestamp is considered a repeat purchase, even when both orders occur on the same calendar date.
+
+Orders with an identical approval timestamp are not treated as post-snapshot repeat purchases.
+
+Reason:
+The dataset provides timestamp-level information, allowing the project to use temporal ordering rather than calendar-day differences.
+
+Status:
+Confirmed

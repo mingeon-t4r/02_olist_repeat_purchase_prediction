@@ -49,3 +49,13 @@ Primary evaluation:
 - Precision@K
 - Recall@K
 - Lift@K
+
+## Data Pipeline
+
+Raw Olist data
+→ Order-level analytical base
+→ First approved purchase per customer
+→ 90-day observation eligibility
+→ Repeat-purchase outcome
+→ First-purchase feature table
+→ Rule baseline and predictive models
