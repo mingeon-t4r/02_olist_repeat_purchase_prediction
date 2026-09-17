@@ -147,3 +147,34 @@ The dataset provides timestamp-level information, allowing the project to use te
 
 Status:
 Confirmed
+
+---
+
+## D010 — Cohort Comparison Window
+
+Decision:
+Monthly repeat-purchase trends will be evaluated using complete calendar-month first-purchase cohorts.
+
+The first observed month and the month containing the 90-day eligibility cutoff are retained in the data but excluded from primary month-to-month comparisons.
+
+Primary full-month period:
+2016-10 through 2018-05.
+
+Reason:
+Boundary months contain only partial customer acquisition periods and are not directly comparable with complete months.
+
+Status:
+Confirmed
+
+---
+
+## D011 — Near-Immediate Repeat Orders
+
+Decision:
+Quantify repeat purchases occurring within 1 hour, 24 hours, and 7 days of the first purchase before changing the current repeat_90d definition.
+
+Reason:
+Very short intervals may represent behavior different from longer-term customer retention, but the dataset does not directly identify the cause.
+
+Status:
+Pending sensitivity review
