@@ -1,50 +1,55 @@
 # Analysis Findings
 
-## 1. Overall 90-Day Repeat Purchase
+## 1. 전체 90일 재구매율
 
-Eligible customers:
-78,505
+90일 Outcome 관찰 가능 고객:
 
-90-day repeat customers:
-1,766
+78,505명
 
-90-day repeat rate:
+90일 이내 재구매 고객:
+
+1,766명
+
+90일 재구매율:
+
 2.25%
 
-Interpretation:
-The target is highly imbalanced.
+### 해석
 
-A classifier predicting every customer as non-repeat
-would achieve approximately 97.75% accuracy, so accuracy
-alone is not an appropriate primary evaluation metric.
+Target은 매우 불균형하다.
 
-Model evaluation will focus on ranking and positive-class
-performance such as Precision@K, Recall@K, Lift@K,
-and PR-AUC.
+모든 고객을 Non-Repeat로 예측해도 약 97.75%의 Accuracy가 나오기 때문에 Accuracy만으로 모델을 평가하는 것은 적절하지 않다.
+
+향후 모델 평가는 다음 Ranking 및 Positive-Class 지표를 중심으로 진행한다.
+
+- Precision@K
+- Recall@K
+- Lift@K
+- PR-AUC
 
 ---
 
 ## 2. Cohort Stability
 
-Primary cohort comparison period:
-2017-01 to 2018-05
+Primary Cohort 비교 기간:
 
-The 2016 cohorts are excluded from the primary comparison
-because observed customer volume is sparse, and 2018-06
-is excluded because only part of the month has a complete
-90-day outcome window.
+2017-01 ~ 2018-05
 
-Finding:
-Across the main observation period, monthly 90-day repeat
-rates vary roughly between 1.5% and 3.4%.
+2016년 Cohort는 관측 고객 수가 매우 적어 Primary 비교에서 제외한다.
 
-For the larger cohorts from 2017-02 onward, most observed
-rates fall approximately between 1.5% and 2.9%, without a
-simple monotonic upward or downward trend.
+2018-06 Cohort는 해당 월 일부 고객만 90일 전체 Outcome Window를 확보할 수 있으므로 제외한다.
 
-These differences remain descriptive and will not be
-interpreted as structural changes without further
-validation.
+### 분석 결과
+
+Primary 기간의 월별 90일 재구매율은 대략 1.5% ~ 3.4% 범위에서 움직였다.
+
+표본 규모가 더 안정적인 2017-02 이후 Cohort의 대부분은 약 1.5% ~ 2.9% 범위에 분포한다.
+
+시간이 지날수록 재구매율이 지속적으로 상승하거나 지속적으로 하락하는 단순한 패턴은 확인되지 않았다.
+
+현재 결과는 기술적 관찰이며, 추가 통계 검증 없이 기간별 구조적 차이라고 해석하지 않는다.
+
+![Cohort customer count](../reports/figures/cohort_customer_count.png)
 
 ![Cohort repeat rate](../reports/figures/cohort_90d_repeat_rate.png)
 
@@ -52,23 +57,28 @@ validation.
 
 ## 3. Repeat Timing
 
-30-day repeat rate:
-1.53% (90,718 eligible customers)
+30일 재구매율:
 
-60-day repeat rate:
-1.92% (84,552 eligible customers)
+1.53%
+(90,718명 관찰 가능)
 
-90-day repeat rate:
-2.25% (78,505 eligible customers)
+60일 재구매율:
 
-Because each horizon uses the customers with a complete
-observation window for that horizon, these rates should
-not be interpreted as a decomposition of the same
-customer cohort.
+1.92%
+(84,552명 관찰 가능)
 
-Among customers labeled as 90-day repeat purchasers,
-the median observed time to the next approved order is
-approximately 5.73 days.
+90일 재구매율:
+
+2.25%
+(78,505명 관찰 가능)
+
+### 해석
+
+각 기간의 재구매율은 각각 해당 Outcome Window를 완전히 관찰할 수 있는 고객을 분모로 사용한다.
+
+따라서 30일, 60일, 90일 비율은 완전히 동일한 고객 집단의 단순 누적 분해값으로 해석하지 않는다.
+
+90일 재구매 고객 1,766명의 첫 구매 이후 다음 승인 주문까지의 중앙값은 약 5.73일이다.
 
 ![Cumulative repeat rate](../reports/figures/cumulative_repeat_rate.png)
 
@@ -78,71 +88,116 @@ approximately 5.73 days.
 
 ## 4. Near-Immediate Repeat Orders
 
-Repeat within 1 hour:
-711 (40.26%)
+첫 구매 후 1시간 이내 추가 주문:
 
-Repeat within 24 hours:
-773 (43.77%)
+711명
+(90일 재구매 고객의 40.26%)
 
-Repeat within 7 days:
-921 (52.15%)
+첫 구매 후 24시간 이내 추가 주문:
 
-Interpretation:
-More than half of observed 90-day repeat purchasers place
-another approved order within 7 days, and 40.26% do so
-within the first hour.
+773명
+(43.77%)
 
-These unusually short intervals may represent behavior
-different from longer-term retention.
+첫 구매 후 7일 이내 추가 주문:
 
-The dataset does not directly identify the cause, so the
-current repeat definition will not be changed solely from
-this observation.
+921명
+(52.15%)
 
-A sensitivity analysis excluding near-immediate orders is
-performed before the final modeling target is confirmed.
+### 해석
+
+90일 재구매 고객의 절반 이상이 첫 구매 이후 7일 이내에 추가 승인 주문을 발생시켰다.
+
+특히 전체 90일 재구매 고객의 40.26%가 1시간 이내에 추가 주문을 발생시켰다.
+
+매우 짧은 주문 간격은 장기적인 고객 유지 행동과 다른 현상을 포함하고 있을 가능성이 있다.
+
+하지만 데이터만으로 분할 주문, 추가 구매, 주문 재시도 등 구체적인 원인을 판별할 수 없다.
+
+따라서 현재 Target을 바로 변경하지 않고, 1시간 또는 24시간 이내 주문을 제외한 Sensitivity Analysis 결과를 확인한 뒤 최종 모델링 Target을 결정한다.
 
 ---
 
 ## 5. First-Purchase Feature Patterns
 
-### First Order Value
+### 5.1 First Order Value
 
-Among 77,927 customers with observed first-order value:
+First Order Value가 관측된 고객:
+
+77,927명
+
+Quartile별 90일 재구매율:
 
 - Q1: 2.38%
 - Q2: 2.53%
 - Q3: 2.04%
 - Q4: 2.06%
 
-A simple monotonic relationship between higher first-order
-value and higher repeat purchase is not observed.
+### 해석
+
+첫 주문 금액이 커질수록 재구매율도 지속적으로 증가하는 단순한 관계는 나타나지 않았다.
+
+Q2가 가장 높은 재구매율을 보였으며, Q3와 Q4는 Q1과 Q2보다 낮게 나타났다.
+
+따라서 첫 주문 금액만 이용한 단순 Rule은 강한 재구매 우선순위 기준이 아닐 가능성이 있다.
+
+통계적 유의성은 아직 검증하지 않았다.
 
 ![Repeat rate by first order value](../reports/figures/first_order_value_repeat_rate.png)
 
-### Basket Size
+---
 
-Finding:
-Pending recalculation after excluding customers with
-missing first_item_count from the single-item group.
+### 5.2 Basket Size
 
-### Payment Type
+`first_item_count`가 결측인 고객 578명을 제외하고 77,927명의 고객을 대상으로 첫 주문의 Basket Size와 90일 재구매율을 비교하였다.
 
-The two dominant payment methods have similar observed
-repeat rates:
+Single-Item Order:
+
+- 고객 수: 70,197명
+- 90일 재구매 고객: 1,515명
+- 90일 재구매율: 2.16%
+
+Multi-Item Order:
+
+- 고객 수: 7,730명
+- 90일 재구매 고객: 240명
+- 90일 재구매율: 3.10%
+
+### 해석
+
+첫 주문에서 2개 이상의 Item을 구매한 고객의 90일 재구매율은 3.10%로, 단일 Item 구매 고객의 2.16%보다 높게 나타났다.
+
+두 그룹의 절대 재구매율 차이는 약 0.95%p이며, Multi-Item 고객의 재구매율은 Single-Item 고객보다 기술적으로 약 44% 높은 수준이다.
+
+따라서 첫 구매의 Basket Size는 향후 재구매 가능성을 구분하는 후보 Feature로서 추가 검증 가치가 있는 것으로 보인다.
+
+다만 현재 결과는 기술 통계 수준의 관찰이며, Basket Size가 재구매를 유발한다고 해석할 수 없다.
+
+또한 두 그룹의 표본 크기가 크게 다르므로 다음 단계에서 비율 차이에 대한 신뢰구간, 통계적 유의성 및 Effect Size를 함께 확인한다.
+
+---
+
+### 5.3 Payment Type
+
+Primary Payment Type별 결과:
 
 - credit_card: 2.25% (n=59,297)
 - boleto: 2.21% (n=15,900)
 - voucher: 2.66% (n=2,481)
 - debit_card: 1.94% (n=826)
 
-Observed differences are modest and require statistical
-validation.
+### 해석
 
-### Product Category
+가장 많은 고객이 사용하는 credit_card와 boleto의 재구매율은 매우 비슷하다.
 
-Repeat rates vary across several well-represented
-first-purchase categories.
+voucher는 상대적으로 높은 2.66%, debit_card는 1.94%를 보였지만 두 집단의 표본 수는 주요 결제 방식보다 작다.
+
+현재 차이는 기술적 관찰 수준이며, Payment Type을 의미 있는 구분 변수로 판단하기 전에 통계적 불확실성을 검증한다.
+
+---
+
+### 5.4 Product Category
+
+표본 수가 비교적 큰 주요 First-Purchase Category에서도 재구매율 차이가 관측된다.
 
 Examples:
 
@@ -153,43 +208,100 @@ Examples:
 - eletronicos: 1.01% (n=2,086)
 - cool_stuff: 0.90% (n=3,219)
 
-Product category therefore appears to be a potentially
-useful predictive feature, although these differences are
-descriptive rather than causal.
+### 해석
 
-### Geography
+첫 구매 상품 Category는 현재 확인한 Feature 중 상대적으로 뚜렷한 재구매율 차이를 보이는 후보 중 하나다.
 
-Repeat rates show some geographic variation, but estimates
-for low-volume states are unstable.
+따라서 모델 Feature 후보로 유지한다.
 
-Geography is retained as a candidate predictor, with
-state-level sample size and uncertainty considered in
-later validation.
+다만 이러한 차이는 인과관계를 의미하지 않으며, 통계적 검증과 시간 기반 모델 평가를 거친 뒤 실제 예측 가치가 있는지 판단한다.
+
+현재 Category 값은 Olist 원본의 포르투갈어 Category Name을 사용하고 있다.
+
+향후 리포트 가독성을 위해 `category_translation`을 이용한 영문 Category를 추가할 수 있다.
+
+---
+
+### 5.5 Geography
+
+State별 재구매율에도 일부 차이가 관측된다.
+
+하지만 고객 수가 적은 State에서는 재구매율 추정치의 변동성이 매우 크다.
+
+예를 들어 표본 수가 큰 SP와 RJ는 전체 재구매율과 비슷한 수준을 보이는 반면, 일부 중소 규모 State는 상대적으로 높거나 낮은 재구매율을 보인다.
+
+### 해석
+
+Geography는 모델 후보 Feature로 유지한다.
+
+다만 State별 재구매율은 반드시 표본 수와 통계적 불확실성을 함께 고려한다.
+
+표본 수가 매우 작은 State의 높은 재구매율을 독립적인 비즈니스 결과로 해석하지 않는다.
 
 ---
 
 ## 6. Data Quality Findings
 
-Among the 78,505 eligible customers:
+Eligible 고객 78,505명 기준으로 다음 결측이 확인되었다.
 
-- 578 customers have missing first-order item features.
-- 1 customer has missing first-order payment features.
-- 1,877 customers have no primary product category.
+First-Order Item 관련 Feature 결측:
 
-These missing values require explicit preprocessing rules
-before statistical testing and model training.
+578명
+
+First-Order Payment 관련 Feature 결측:
+
+1명
+
+Primary Product Category 결측:
+
+1,877명
+
+### 해석
+
+결측값을 즉시 삭제하거나 평균 및 최빈값으로 임의 대체하지 않는다.
+
+먼저 원천 데이터에서 결측이 발생한 이유를 확인하고, Train / Validation / Test 분리 이후 전처리 Pipeline 안에서 처리 정책을 결정한다.
 
 ---
 
-## Current Interpretation
+## 7. Target Sensitivity
 
-The descriptive analysis suggests that first-purchase
-category and basket composition may contain more visible
-repeat-purchase signal than first-order monetary value or
-payment method.
+현재 Primary Target:
 
-However, no feature is treated as statistically validated
-at this stage.
+90일 재구매율 2.25%
 
-The next step is to quantify uncertainty and compare
-repeat rates using statistical tests and effect sizes.
+Sensitivity Analysis:
+
+1시간 이내 추가 주문을 Retention에서 제외한 경우:
+
+[SQL 실행 결과 입력]
+
+24시간 이내 추가 주문을 Retention에서 제외한 경우:
+
+[SQL 실행 결과 입력]
+
+### 해석
+
+Sensitivity 결과를 확인한 후
+Near-Immediate Repeat Order를 최종 Target에
+포함할지 결정한다.
+
+결과가 확정되기 전까지
+기존 `repeat_90d` 정의를 유지한다.
+
+---
+
+## 현재까지의 해석
+
+현재 기술 분석에서는 First-Purchase Category와 Basket Composition이 First Order Value나 주요 Payment Type보다 상대적으로 더 뚜렷한 재구매율 차이를 보일 가능성이 있다.
+
+하지만 현재 단계에서는 어떤 Feature도 통계적으로 검증되었다고 판단하지 않는다.
+
+다음 단계에서는:
+
+- 그룹별 재구매율의 신뢰구간
+- 비율 차이 검정
+- Effect Size
+- 표본 수에 따른 불확실성
+
+을 확인한 뒤 Rule-Based Baseline과 모델 Feature 설계에 반영한다.
