@@ -16,3 +16,10 @@
 | primary_category | products | dominant first-order category | Yes | Yes |
 | customer_unique_id | customers | customer identifier | Yes | No |
 | first_order_id | orders | first order identifier | Yes | No |
+| first_order_value | derived | item value + freight | Yes | Yes |
+| first_avg_item_price | derived | item value / item count | Yes | Yes |
+| first_payment_record_count | order_payments | payment rows | Yes | Yes |
+| first_payment_type_count | order_payments | distinct payment types | Yes | Yes |
+| first_payment_value | order_payments | total first-order payment | Yes | Yes |
+| first_category_count | products | distinct categories | Yes | Yes |
+| missing_category_item_count | derived | items without category | Yes | Review |

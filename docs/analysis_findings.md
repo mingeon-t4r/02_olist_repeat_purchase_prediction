@@ -12,34 +12,67 @@ Eligible customers:
 2.25%
 
 Interpretation:
-결과가 불균형하므로 모델 평가를 Accuracy만으로 하면 안된다.
+The target is highly imbalanced.
+
+A classifier predicting every customer as non-repeat
+would achieve approximately 97.75% accuracy, so accuracy
+alone is not an appropriate primary evaluation metric.
+
+Model evaluation will focus on ranking and positive-class
+performance such as Precision@K, Recall@K, Lift@K,
+and PR-AUC.
 
 ---
 
 ## 2. Cohort Stability
 
-Full-month cohort comparison period:
-2016-10 to 2018-05
+Primary cohort comparison period:
+2017-01 to 2018-05
+
+The 2016 cohorts are excluded from the primary comparison
+because observed customer volume is sparse, and 2018-06
+is excluded because only part of the month has a complete
+90-day outcome window.
 
 Finding:
-구매 후 초기에 재구매율이 유난히 높은 것을 확인했다.
-![Full-month cohort count](../reports/figures/cohort_customer_count.png)
+Across the main observation period, monthly 90-day repeat
+rates vary roughly between 1.5% and 3.4%.
+
+For the larger cohorts from 2017-02 onward, most observed
+rates fall approximately between 1.5% and 2.9%, without a
+simple monotonic upward or downward trend.
+
+These differences remain descriptive and will not be
+interpreted as structural changes without further
+validation.
+
+![Cohort repeat rate](../reports/figures/cohort_90d_repeat_rate.png)
 
 ---
 
 ## 3. Repeat Timing
 
-30-day cumulative repeat rate:
-1.53%
+30-day repeat rate:
+1.53% (90,718 eligible customers)
 
-60-day cumulative repeat rate:
-1.92%
+60-day repeat rate:
+1.92% (84,552 eligible customers)
 
-90-day cumulative repeat rate:
-2.25%
+90-day repeat rate:
+2.25% (78,505 eligible customers)
 
-Finding:
-90일 재구매 중 상당수는 첫 30일에 발생한다.
+Because each horizon uses the customers with a complete
+observation window for that horizon, these rates should
+not be interpreted as a decomposition of the same
+customer cohort.
+
+Among customers labeled as 90-day repeat purchasers,
+the median observed time to the next approved order is
+approximately 5.73 days.
+
+![Cumulative repeat rate](../reports/figures/cumulative_repeat_rate.png)
+
+![Days to repeat](../reports/figures/days_to_repeat_distribution.png)
 
 ---
 
@@ -55,36 +88,108 @@ Repeat within 7 days:
 921 (52.15%)
 
 Interpretation:
-90일 이내 재구매한 고객 중 7일 이내에 재구매한 고객이 반정도이며 전체 40.26%가 1시간 이내에 재구매하였다.
-이렇게 유난히 짧은 기간은 최종 유지 목표를 모델링에 사용하기전에 추가적인 분석이 필요하다.
+More than half of observed 90-day repeat purchasers place
+another approved order within 7 days, and 40.26% do so
+within the first hour.
+
+These unusually short intervals may represent behavior
+different from longer-term retention.
+
+The dataset does not directly identify the cause, so the
+current repeat definition will not be changed solely from
+this observation.
+
+A sensitivity analysis excluding near-immediate orders is
+performed before the final modeling target is confirmed.
+
+---
 
 ## 5. First-Purchase Feature Patterns
 
 ### First Order Value
 
-Finding:
-[실제 결과]
+Among 77,927 customers with observed first-order value:
+
+- Q1: 2.38%
+- Q2: 2.53%
+- Q3: 2.04%
+- Q4: 2.06%
+
+A simple monotonic relationship between higher first-order
+value and higher repeat purchase is not observed.
+
+![Repeat rate by first order value](../reports/figures/first_order_value_repeat_rate.png)
 
 ### Basket Size
 
 Finding:
-[실제 결과]
+Pending recalculation after excluding customers with
+missing first_item_count from the single-item group.
 
 ### Payment Type
 
-Finding:
-[실제 결과]
+The two dominant payment methods have similar observed
+repeat rates:
+
+- credit_card: 2.25% (n=59,297)
+- boleto: 2.21% (n=15,900)
+- voucher: 2.66% (n=2,481)
+- debit_card: 1.94% (n=826)
+
+Observed differences are modest and require statistical
+validation.
 
 ### Product Category
 
-Finding:
-[실제 결과]
+Repeat rates vary across several well-represented
+first-purchase categories.
+
+Examples:
+
+- cama_mesa_banho: 3.80% (n=7,323)
+- moveis_decoracao: 3.59% (n=5,147)
+- esporte_lazer: 2.85% (n=6,238)
+- telefonia: 1.41% (n=3,476)
+- eletronicos: 1.01% (n=2,086)
+- cool_stuff: 0.90% (n=3,219)
+
+Product category therefore appears to be a potentially
+useful predictive feature, although these differences are
+descriptive rather than causal.
 
 ### Geography
 
-Finding:
-[실제 결과]
+Repeat rates show some geographic variation, but estimates
+for low-volume states are unstable.
 
-Interpretation:
-Observed group differences are descriptive at this stage.
-Statistical uncertainty will be evaluated separately.
+Geography is retained as a candidate predictor, with
+state-level sample size and uncertainty considered in
+later validation.
+
+---
+
+## 6. Data Quality Findings
+
+Among the 78,505 eligible customers:
+
+- 578 customers have missing first-order item features.
+- 1 customer has missing first-order payment features.
+- 1,877 customers have no primary product category.
+
+These missing values require explicit preprocessing rules
+before statistical testing and model training.
+
+---
+
+## Current Interpretation
+
+The descriptive analysis suggests that first-purchase
+category and basket composition may contain more visible
+repeat-purchase signal than first-order monetary value or
+payment method.
+
+However, no feature is treated as statistically validated
+at this stage.
+
+The next step is to quantify uncertainty and compare
+repeat rates using statistical tests and effect sizes.

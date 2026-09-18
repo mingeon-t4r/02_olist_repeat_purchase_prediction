@@ -153,15 +153,18 @@ Confirmed
 ## D010 — Cohort Comparison Window
 
 Decision:
-Monthly repeat-purchase trends will be evaluated using complete calendar-month first-purchase cohorts.
+Primary month-to-month cohort comparisons use first-purchase cohorts from 2017-01 through 2018-05.
 
-The first observed month and the month containing the 90-day eligibility cutoff are retained in the data but excluded from primary month-to-month comparisons.
+The 2016 cohorts are retained in the dataset but excluded from the primary stability analysis because observed
+customer volume is extremely sparse:
+- 2016-10: 317 customers
+- 2016-11: no observed cohort
+- 2016-12: 1 customer
 
-Primary full-month period:
-2016-10 through 2018-05.
+The 2018-06 cohort is excluded because only part of the month has a complete 90-day observation window.
 
 Reason:
-Boundary months contain only partial customer acquisition periods and are not directly comparable with complete months.
+Sparse or partially observed cohorts can create unstable repeat-rate estimates that are not directly comparable with the main observation period.
 
 Status:
 Confirmed
