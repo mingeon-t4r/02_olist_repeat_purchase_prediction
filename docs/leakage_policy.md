@@ -6,9 +6,8 @@
 
 ## Prediction Snapshot
 
-첫 번째 유효 구매가 확인되는 시점.
-
-정확한 timestamp는 데이터 audit 후 확정한다.
+고객의 첫 번째 payment-approved order 시점
+(order_approved_at)
 
 ## Candidate Features
 
@@ -69,7 +68,6 @@ ML Feature에는 사용하지 않는다.
 - installment count
 - purchase weekday
 - purchase hour
-- estimated delivery date
 
 ## Pending Review
 

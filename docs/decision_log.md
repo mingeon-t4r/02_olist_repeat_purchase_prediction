@@ -178,3 +178,48 @@ Very short intervals may represent behavior different from longer-term customer 
 
 Status:
 Pending sensitivity review
+
+---
+
+## D012 — First-Purchase Feature Boundary
+
+Decision:
+Predictive features are restricted to information
+available from the customer's first approved order
+at the prediction snapshot.
+
+Allowed feature groups include:
+
+- customer geography
+- basket size
+- item value
+- freight
+- payment characteristics
+- product category
+- purchase timing
+
+Future customer behavior is excluded.
+
+Reason:
+The production prediction would be generated immediately
+after the first payment-approved purchase.
+
+Status:
+Confirmed
+
+---
+
+## D013 — Customer History Features
+
+Decision:
+Full-history RFM, total orders, total revenue,
+last purchase date, and future category behavior
+will not be used as predictors.
+
+Reason:
+These values require information generated after
+the first-purchase prediction snapshot and would
+introduce target leakage.
+
+Status:
+Confirmed
