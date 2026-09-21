@@ -105,7 +105,7 @@ Primary Key:
 | is_eligible_90d | 90일 Outcome 관찰 가능 여부 |
 | second_approved_at | Reference Target의 최초 추가 승인 주문 |
 | repeat_90d | 0~90일 Reference Target |
-| first_repeat_approved_at_after_1h | 첫 승인 후 1시간을 초과한 최초 유효 추가 주문 |
+| second_approved_at_after_1h | 첫 승인 후 1시간을 초과한 최초 유효 추가 주문 시점 |
 | repeat_90d_after_1h | Primary Modeling Target |
 
 `repeat_90d_after_1h`을 모델링 및 Primary Analysis Target으로 사용한다.

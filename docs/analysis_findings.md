@@ -134,7 +134,7 @@ Primary Target에서 90일 내 재구매한 1,082명의 다음 유효 승인 주
 
 하지만 데이터만으로 분할 주문, 추가 구매, 주문 재시도 등 구체적인 원인을 판별할 수 없다.
 
-따라서 현재 Target을 바로 변경하지 않고, 1시간 또는 24시간 이내 주문을 제외한 Sensitivity Analysis 결과를 확인한 뒤 최종 모델링 Target을 결정한다.
+이 분석을 근거로 Section 7의 Sensitivity Analysis를 수행했고, repeat_90d_after_1h을 Primary Target으로 확정했다.
 
 ---
 
@@ -287,70 +287,35 @@ Primary Product Category 결측:
 
 ## 7. Target Sensitivity
 
-현재 Primary Target:
+### Reference Target
+
+첫 승인 주문 직후부터 90일까지:
 
 - Eligible customers: 78,505명
 - Repeat customers: 1,766명
-- 90-day repeat rate: 2.25%
+- Repeat rate: 2.25%
 
-Near-Immediate Repeat Order를 제외했을 때의
-Sensitivity Analysis 결과는 다음과 같다.
+### After 1 Hour
 
-### 1시간 이후 재구매만 인정
-
-- Eligible customers: 78,505명
 - Repeat customers: 1,082명
 - Repeat rate: 1.38%
 
-기존 Target 대비 재구매 고객은 684명 감소하였다.
+### After 24 Hours
 
-이는 기존 Repeat 고객의 약 38.7%에 해당한다.
-
-### 24시간 이후 재구매만 인정
-
-- Eligible customers: 78,505명
 - Repeat customers: 1,024명
 - Repeat rate: 1.30%
 
-기존 Target 대비 재구매 고객은 742명 감소하였다.
+### 최종 결정
 
-이는 기존 Repeat 고객의 약 42.0%에 해당한다.
+1시간 이내 주문을 제외하면 Positive 고객 수는 Reference Target 대비 약 38.7% 감소한다.
 
-### 해석
+반면 1시간과 24시간 기준 사이의 차이는 58명, 약 0.08%p에 그쳤다.
 
-초단기 주문을 제외하면 90일 재구매율은
-2.25%에서 1.38% 또는 1.30%까지 크게 감소한다.
+이에 따라 본 프로젝트에서는 첫 승인 주문 후 1시간을 초과한 시점부터 90일까지의 추가 승인 주문을 Primary Modeling Target으로 확정하였다.
 
-특히 1시간 이내 주문을 제외하는 것만으로
-재구매 고객 수가 약 38.7% 감소한다.
+기존 `repeat_90d`는 Reference Target으로 유지한다.
 
-반면 1시간 기준과 24시간 기준의 차이는
-58명, 재구매율 기준 약 0.08%p에 불과하다.
-
-이는 현재 `repeat_90d` Target의 상당 부분이
-첫 구매 직후 매우 짧은 시간 안에 발생하는
-추가 주문으로 구성되어 있음을 보여준다.
-
-이러한 주문이 장기적인 고객 Retention과 동일한 의미인지
-데이터만으로 확인할 수 없으므로,
-초단기 주문을 그대로 모델링 Target에 포함하는 것은
-CRM 활용 관점에서 주의가 필요하다.
-
-본 프로젝트에서는 모델링용 Primary Target으로
-첫 구매 승인 후 1시간을 초과한 시점부터
-90일 이내 발생한 추가 승인 주문을 사용하는 방향을 검토한다.
-
-기존 `repeat_90d`는 원래 정의에 대한
-Reference / Sensitivity Target으로 유지한다.
-
-### 해석
-
-Sensitivity 결과를 확인한 후
-Near-Immediate Repeat Order를 최종 Target에
-포함할지 결정한다.
-
-결과가 확정되기 전까지
-기존 `repeat_90d` 정의를 유지한다.
+1시간이라는 경계는 모델 성능을 높이기 위해 사후적으로 선택한 값이 아니라, CRM Retention이라는 비즈니스 질문에 Target의 의미를 맞추기 위해 모델링 이전에 확정한 운영상 기준이다.
 
 ---
 
@@ -359,66 +324,112 @@ Near-Immediate Repeat Order를 최종 Target에
 ### Basket Size
 
 Single-Item:
-1.32%
+
+- Repeat Rate: 1.32%
+- 95% Wilson CI: 1.24% ~ 1.40%
 
 Multi-Item:
-1.93%
+
+- Repeat Rate: 1.93%
+- 95% Wilson CI: 1.64% ~ 2.26%
 
 Absolute Difference:
+
 0.61%p
 
 Relative Risk:
+
 1.463
 
-95% CI:
-4.3649
-
 Two-Proportion Z-Test:
-p = 1.2719
 
-Interpretation:
-Z가 1.96 보다 작으므로 Single-Item과 Multi-Item의 재구매율이 같다는 귀무가설을 기각하지 못하므로 그 차이가 통계적으로 유의하다고 볼 충분한 근거가 없다.
+- Z = 4.3649
+- p = 1.27e-05
+
+### 해석
+
+Single-Item 고객과 Multi-Item 고객의 90일 재구매율 차이는 통계적으로 유의하게 나타났다.
+
+Multi-Item 고객의 재구매율은 1.93%로, Single-Item 고객의 1.32%보다 약 0.61%p 높다.
+
+상대적으로는 Multi-Item 고객의 재구매율이 약 1.46배 높은 수준이다.
+
+다만 전체 재구매율 자체가 낮기 때문에 절대적인 차이는 0.61%p 수준이다.
+
+따라서 Basket Size는 재구매 가능성을 구분하는 의미 있는 후보 Feature로 유지하되, 이 결과만으로 강한 단독 예측 변수라고 판단하지 않는다.
+
+또한 본 결과는 연관성을 보여주는 것이며 Multi-Item 구매가 재구매를 유발한다는 인과적 의미로 해석하지 않는다.
 
 ### First Order Value
 
 Chi-Square:
+
 p = 0.8541
 
 Cramér's V:
+
 0.0032
+
+### 해석
+
+First Order Value Quartile과 재구매 여부 사이에서 통계적으로 유의한 관계는 확인되지 않았다.
+
+Cramér's V도 매우 작아, 첫 주문 금액 자체의 독립적인 구분력은 제한적일 가능성이 있다.
+
+---
 
 ### Payment Type
 
 Chi-Square:
+
 p = 0.3008
 
 Cramér's V:
+
 0.0068
+
+### 해석
+
+Primary Payment Type과 재구매 여부 사이에서도 통계적으로 유의한 관계는 확인되지 않았다.
+
+주요 Payment Type별 기술적 차이는 존재하지만 전체적인 연관성은 매우 약한 수준이다.
 
 ### Product Category
 
 Analysis Population:
+
 n >= 500 categories
 
 Chi-Square:
-p = 2.6153
+
+p = 2.62e-10
 
 Cramér's V:
+
 0.0362
+
+### 해석
+
+Product Category와 90일 재구매 여부 사이에는 통계적으로 유의한 관계가 관측되었다.
+
+다만 Cramér's V는 0.0362로 작기 때문에 전체적인 연관성의 크기는 강하지 않다.
+
+따라서 Category는 모델 Feature 후보로 유지하지만, Category 하나만으로 고객을 강하게 구분할 수 있다고 해석하지 않는다.
+
+향후 시간 기반 Validation에서 다른 첫 구매 Feature와 함께 사용했을 때 실제 예측 성능에 기여하는지 확인한다.
 
 ---
 
 ## 현재까지의 해석
 
-현재 기술 분석에서는 First-Purchase Category와 Basket Composition이 First Order Value나 주요 Payment Type보다 상대적으로 더 뚜렷한 재구매율 차이를 보일 가능성이 있다.
+Primary Target 기준 통계 검증 결과, Basket Size와 Product Category는 90일 재구매 여부와 통계적으로 유의한 관계를 보였다.
 
-하지만 현재 단계에서는 어떤 Feature도 통계적으로 검증되었다고 판단하지 않는다.
+특히 Multi-Item 고객은 Single-Item 고객보다 재구매율이 약 0.61%p 높고, 상대 재구매율은 약 1.46배로 나타났다.
 
-다음 단계에서는:
+Product Category 역시 통계적으로 유의했지만 Cramér's V가 0.0362로 작아 전체적인 연관성의 크기는 약한 수준이다.
 
-- 그룹별 재구매율의 신뢰구간
-- 비율 차이 검정
-- Effect Size
-- 표본 수에 따른 불확실성
+반면 First Order Value Quartile과 Primary Payment Type에서는 통계적으로 유의한 관계가 확인되지 않았다.
 
-을 확인한 뒤 Rule-Based Baseline과 모델 Feature 설계에 반영한다.
+따라서 이후 모델링에서는 Basket Size와 Product Category를 주요 후보 Feature로 유지하되, 어떤 Feature도 단독으로 강한 예측 변수라고 가정하지 않는다.
+
+최종 Feature의 가치는 시간 기반 Train / Validation / Test와 실제 Ranking 성능을 통해 다시 평가한다.

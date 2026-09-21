@@ -335,27 +335,81 @@ Confirmed
 
 ---
 
-## D014 — First-Purchase Feature 결측
+## D014 — First-Purchase Feature Missingness
 
 Observed:
 
-Eligible 고객 78,505명 중
+Primary Modeling Population인 90일 Outcome 관찰 가능 고객 78,505명에서 다음 결측이 확인되었다.
 
-- Item 관련 First-Purchase Feature 결측: 578명
-- Payment 관련 Feature 결측: 1명
-- Primary Category 결측: 1,877명
+### Item Feature Missing
+
+Item 관련 First-Purchase Feature 결측:
+
+- 578명
+- 전체 Modeling Population의 약 0.74%
+
+결측 주문의 `order_status` 분포:
+
+- unavailable: 552명
+- canceled: 23명
+- invoiced: 2명
+- shipped: 1명
+
+원본 `order_items`를 다시 확인한 결과, 578건 모두 대응되는 `order_items` 레코드가 존재하지 않았다.
+
+따라서 Item Feature 결측은 Feature 생성 과정이나 JOIN 오류가 아니라, 원천 데이터에서 해당 첫 주문의 Item 레코드가 관측되지 않은 데서 발생한 것으로 판단한다.
+
+특히 578건 중 552건이 `unavailable` 상태로, Item 결측은 특정 주문 상태와 강하게 연결된 구조적인 Missing Pattern을 보인다.
+
+### Payment Feature Missing
+
+Payment 관련 Feature 결측:
+
+- 1명
+
+원본 `order_payments`를 확인한 결과, 해당 주문에는 대응되는 Payment Record가 존재하지 않았다.
+
+따라서 Payment Feature 결측 역시 Feature 생성 또는 JOIN 오류가 아니라 원천 데이터의 결측으로 판단한다.
+
+### Product Category Missing
+
+Primary Category 기준 고객 분포:
+
+- observed: 76,628명
+- missing_category: 1,299명
+- missing_items: 578명
+
+총 Primary Category 결측 고객은 1,877명이다.
+
+이 중 578명은 첫 주문 자체에 `order_items` 레코드가 존재하지 않아 Category를 구성할 수 없는 고객이다.
+
+나머지 1,299명은 Item Record는 존재하지만 `primary_category`가 관측되지 않은 고객이다.
+
+현재 Audit에서는 이 1,299건의 Category 결측이 발생한 세부 원인까지는 확정하지 않는다.
 
 Decision:
 
-결측 원인을 확인하기 전에는 해당 고객을 임의로 삭제하거나 값을 임의 대체하지 않는다.
+결측 고객을 분석 데이터에서 일괄 삭제하지 않는다.
 
-결측 처리 규칙은 데이터 원인을 검증하고
-Train / Validation / Test를 분리한 이후
-전처리 Pipeline에서 결정한다.
+Item 및 Payment 결측은 단순한 임의 대체 대상으로 간주하지 않고, 원천 데이터의 구조적인 Missing Pattern으로 취급한다.
+
+모델링 단계에서는 다음 원칙을 적용한다.
+
+- Item 관련 Feature에는 Missing 여부를 식별할 수 있는   별도의 Indicator를 두는 방식을 우선 검토한다.
+- Numeric Feature의 대체값은   Train / Validation / Test 분리 이후 Preprocessing Pipeline 내부에서 결정한다.
+- Category 결측은 별도의 Missing / Unknown Category로 처리하는 방식을 우선 검토한다.
+- 결측 처리 과정에서 Validation / Test 정보를 이용하지 않는다.
+- 결측 고객을 제거하는 방식과 유지하는 방식의 영향은 필요할 경우 Sensitivity Analysis로 비교한다.
+
+Reason:
+
+Item 결측 578건 모두 실제 `order_items`가 존재하지 않았고, 대부분이 `order_status = unavailable`에 집중되어 있어 무작위적인 Feature 계산 실패로 보기 어렵다.
+
+결측 고객을 단순 삭제하면 특정 주문 상태와 연결된 고객군을 체계적으로 제거할 수 있으므로, 결측 자체가 가진 정보를 보존하는 방향이 더 적절하다.
 
 Status:
 
-Pending preprocessing decision
+Cause Confirmed / Preprocessing Policy Defined
 
 ## D015 — Statistical Interpretation Policy
 
