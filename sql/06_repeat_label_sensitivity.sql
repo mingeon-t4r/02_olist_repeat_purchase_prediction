@@ -56,9 +56,32 @@ WITH sensitivity_base AS (
         c.first_approved_at
 )
 
+SELECT
+    'primary' AS target_definition,
+
+    count(*) AS eligible_customer_count,
+
+    sum(
+        repeat_90d
+    ) AS repeat_customer_count,
+
+    round(
+        avg(repeat_90d) * 100,
+        2
+    ) AS repeat_rate_pct
+
+FROM customer_repeat_90d_base
+
+WHERE
+    is_eligible_90d = 1
+
+
+UNION ALL
+
 
 SELECT
-    count(*) AS eligible_customer_count,
+    'after_1h',
+    count(*),
 
     sum(
         CASE
@@ -66,7 +89,7 @@ SELECT
                 THEN 1
             ELSE 0
         END
-    ) AS repeat_after_1h_count,
+    ),
 
     round(
         avg(
@@ -77,7 +100,17 @@ SELECT
             END
         ) * 100,
         2
-    ) AS repeat_after_1h_rate,
+    )
+
+FROM sensitivity_base
+
+
+UNION ALL
+
+
+SELECT
+    'after_24h',
+    count(*),
 
     sum(
         CASE
@@ -85,7 +118,7 @@ SELECT
                 THEN 1
             ELSE 0
         END
-    ) AS repeat_after_24h_count,
+    ),
 
     round(
         avg(
@@ -96,6 +129,6 @@ SELECT
             END
         ) * 100,
         2
-    ) AS repeat_after_24h_rate
+    )
 
 FROM sensitivity_base;

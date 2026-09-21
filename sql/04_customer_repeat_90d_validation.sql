@@ -210,3 +210,99 @@ GROUP BY
 
 ORDER BY
     first_purchase_month;
+	
+-- Positive Label 검증
+
+SELECT
+    count(*) AS invalid_positive_after_1h_count
+
+FROM customer_repeat_90d_base
+
+WHERE
+    repeat_90d_after_1h = 1
+
+    AND (
+
+        second_approved_at_after_1h
+            <= datetime(
+                first_approved_at,
+                '+1 hour'
+            )
+
+        OR
+
+        second_approved_at_after_1h
+            > datetime(
+                first_approved_at,
+                '+90 day'
+            )
+    );
+	
+-- Negative Label 검증
+
+SELECT
+    count(*) AS invalid_negative_after_1h_count
+
+FROM customer_repeat_90d_base AS c
+
+WHERE
+    c.repeat_90d_after_1h = 0
+
+    AND EXISTS (
+
+        SELECT
+            1
+
+        FROM order_base AS o
+
+        WHERE
+            o.customer_unique_id
+                = c.customer_unique_id
+
+            AND o.is_approved_order = 1
+
+            AND o.order_approved_at
+                > datetime(
+                    c.first_approved_at,
+                    '+1 hour'
+                )
+
+            AND o.order_approved_at
+                <= datetime(
+                    c.first_approved_at,
+                    '+90 day'
+                )
+    );
+	
+-- Target 수치
+
+SELECT
+    count(*) AS eligible_customer_count,
+
+    sum(
+        repeat_90d_after_1h
+    ) AS repeat_customer_count,
+
+    round(
+        avg(
+            repeat_90d_after_1h
+        ) * 100,
+        2
+    ) AS repeat_rate_pct
+
+FROM customer_repeat_90d_base
+
+WHERE
+    is_eligible_90d = 1;
+
+-- 계층 확인
+	
+SELECT
+    count(*) AS invalid_target_hierarchy
+
+FROM customer_repeat_90d_base
+
+WHERE
+    repeat_90d_after_1h = 1
+
+    AND repeat_90d <> 1;

@@ -33,11 +33,11 @@ SELECT
     count(*) AS eligible_customer_count,
 
     sum(
-        c.repeat_90d
+        c.repeat_90d_after_1h
     ) AS repeat_customer_count,
 
     round(
-        avg(c.repeat_90d) * 100,
+        avg(c.repeat_90d_after_1h) * 100,
         2
     ) AS repeat_rate_pct,
 
@@ -107,9 +107,9 @@ SELECT
 
     sum(
         CASE
-            WHEN c.second_approved_at IS NOT NULL
+            WHEN c.second_approved_at_after_1h IS NOT NULL
 
-            AND c.second_approved_at
+            AND c.second_approved_at_after_1h
                 <= datetime(
                     c.first_approved_at,
                     '+30 day'
@@ -126,9 +126,9 @@ SELECT
         *
         sum(
             CASE
-                WHEN c.second_approved_at IS NOT NULL
+                WHEN c.second_approved_at_after_1h IS NOT NULL
 
-                AND c.second_approved_at
+                AND c.second_approved_at_after_1h
                     <= datetime(
                         c.first_approved_at,
                         '+30 day'
@@ -164,9 +164,9 @@ SELECT
 
     sum(
         CASE
-            WHEN c.second_approved_at IS NOT NULL
+            WHEN c.second_approved_at_after_1h IS NOT NULL
 
-            AND c.second_approved_at
+            AND c.second_approved_at_after_1h
                 <= datetime(
                     c.first_approved_at,
                     '+60 day'
@@ -183,9 +183,9 @@ SELECT
         *
         sum(
             CASE
-                WHEN c.second_approved_at IS NOT NULL
+                WHEN c.second_approved_at_after_1h IS NOT NULL
 
-                AND c.second_approved_at
+                AND c.second_approved_at_after_1h
                     <= datetime(
                         c.first_approved_at,
                         '+60 day'
@@ -228,7 +228,7 @@ SELECT
     ),
 
     round(
-        avg(c.repeat_90d) * 100,
+        avg(c.repeat_90d_after_1h) * 100,
         2
     )
 
@@ -242,10 +242,10 @@ WHERE
 SELECT
     customer_unique_id,
     first_approved_at,
-    second_approved_at,
+    second_approved_at_after_1h,
 
     (
-        julianday(second_approved_at)
+        julianday(second_approved_at_after_1h)
         - julianday(first_approved_at)
     ) AS days_to_repeat
 

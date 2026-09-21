@@ -1,31 +1,47 @@
 # Analysis Findings
 
-## 1. 전체 90일 재구매율
+## 1. Primary 90-Day Repeat Purchase Target
 
-90일 Outcome 관찰 가능 고객:
+모델링 대상 고객:
 
 78,505명
 
-90일 이내 재구매 고객:
+Primary Modeling Target:
 
-1,766명
+첫 승인 주문 이후 1시간을 초과한 시점부터
+90일 이내에 추가 승인 주문이 발생했는지 여부
 
-90일 재구매율:
+Primary Repeat Customers:
 
-2.25%
+1,082명
+
+Primary Repeat Rate:
+
+1.38%
+
+### Reference Target
+
+첫 승인 주문 직후부터 90일까지의
+기존 `repeat_90d` 정의에서는:
+
+- Repeat customers: 1,766명
+- Repeat rate: 2.25%
 
 ### 해석
 
-Target은 매우 불균형하다.
+초단기 주문을 제외한 Primary Modeling Target은
+전체 고객의 1.38%만 Positive Class에 해당한다.
 
-모든 고객을 Non-Repeat로 예측해도 약 97.75%의 Accuracy가 나오기 때문에 Accuracy만으로 모델을 평가하는 것은 적절하지 않다.
+모든 고객을 Non-Repeat로 예측해도
+약 98.62%의 Accuracy가 나오므로
+Accuracy는 주요 모델 평가 지표로 사용하지 않는다.
 
-향후 모델 평가는 다음 Ranking 및 Positive-Class 지표를 중심으로 진행한다.
+향후 평가는 다음 지표를 중심으로 진행한다.
 
+- PR-AUC
 - Precision@K
 - Recall@K
 - Lift@K
-- PR-AUC
 
 ---
 
@@ -127,16 +143,16 @@ First Order Value가 관측된 고객:
 
 Quartile별 90일 재구매율:
 
-- Q1: 2.38%
-- Q2: 2.53%
-- Q3: 2.04%
-- Q4: 2.06%
+- Q1: 1.43%
+- Q2: 1.36%
+- Q3: 1.33%
+- Q4: 1.39%
 
 ### 해석
 
 첫 주문 금액이 커질수록 재구매율도 지속적으로 증가하는 단순한 관계는 나타나지 않았다.
 
-Q2가 가장 높은 재구매율을 보였으며, Q3와 Q4는 Q1과 Q2보다 낮게 나타났다.
+Q1가 가장 높은 재구매율을 보였으며, Q3와 Q2는 Q1과 Q4보다 낮게 나타났다.
 
 따라서 첫 주문 금액만 이용한 단순 Rule은 강한 재구매 우선순위 기준이 아닐 가능성이 있다.
 
@@ -153,20 +169,20 @@ Q2가 가장 높은 재구매율을 보였으며, Q3와 Q4는 Q1과 Q2보다 낮
 Single-Item Order:
 
 - 고객 수: 70,197명
-- 90일 재구매 고객: 1,515명
-- 90일 재구매율: 2.16%
+- 90일 재구매 고객: 925명
+- 90일 재구매율: 1.32%
 
 Multi-Item Order:
 
 - 고객 수: 7,730명
-- 90일 재구매 고객: 240명
-- 90일 재구매율: 3.10%
+- 90일 재구매 고객: 149명
+- 90일 재구매율: 1.93%
 
 ### 해석
 
-첫 주문에서 2개 이상의 Item을 구매한 고객의 90일 재구매율은 3.10%로, 단일 Item 구매 고객의 2.16%보다 높게 나타났다.
+첫 주문에서 2개 이상의 Item을 구매한 고객의 90일 재구매율은 1.93%로, 단일 Item 구매 고객의 1.32%보다 높게 나타났다.
 
-두 그룹의 절대 재구매율 차이는 약 0.95%p이며, Multi-Item 고객의 재구매율은 Single-Item 고객보다 기술적으로 약 44% 높은 수준이다.
+두 그룹의 절대 재구매율 차이는 약 0.61%p이며, Multi-Item 고객의 재구매율은 Single-Item 고객보다 기술적으로 약 46% 높은 수준이다.
 
 따라서 첫 구매의 Basket Size는 향후 재구매 가능성을 구분하는 후보 Feature로서 추가 검증 가치가 있는 것으로 보인다.
 
@@ -180,16 +196,16 @@ Multi-Item Order:
 
 Primary Payment Type별 결과:
 
-- credit_card: 2.25% (n=59,297)
-- boleto: 2.21% (n=15,900)
-- voucher: 2.66% (n=2,481)
-- debit_card: 1.94% (n=826)
+- credit_card: 1.38% (n=59,297)
+- boleto: 1.31% (n=15,900)
+- voucher: 1.77% (n=2,481)
+- debit_card: 1.57% (n=826)
 
 ### 해석
 
 가장 많은 고객이 사용하는 credit_card와 boleto의 재구매율은 매우 비슷하다.
 
-voucher는 상대적으로 높은 2.66%, debit_card는 1.94%를 보였지만 두 집단의 표본 수는 주요 결제 방식보다 작다.
+voucher는 1.77%, debit_card는 1.57%를 보였지만 두 집단의 표본 수는 주요 결제 방식보다 작다.
 
 현재 차이는 기술적 관찰 수준이며, Payment Type을 의미 있는 구분 변수로 판단하기 전에 통계적 불확실성을 검증한다.
 
@@ -268,17 +284,59 @@ Primary Product Category 결측:
 
 현재 Primary Target:
 
-90일 재구매율 2.25%
+- Eligible customers: 78,505명
+- Repeat customers: 1,766명
+- 90-day repeat rate: 2.25%
 
-Sensitivity Analysis:
+Near-Immediate Repeat Order를 제외했을 때의
+Sensitivity Analysis 결과는 다음과 같다.
 
-1시간 이내 추가 주문을 Retention에서 제외한 경우:
+### 1시간 이후 재구매만 인정
 
-[SQL 실행 결과 입력]
+- Eligible customers: 78,505명
+- Repeat customers: 1,082명
+- Repeat rate: 1.38%
 
-24시간 이내 추가 주문을 Retention에서 제외한 경우:
+기존 Target 대비 재구매 고객은 684명 감소하였다.
 
-[SQL 실행 결과 입력]
+이는 기존 Repeat 고객의 약 38.7%에 해당한다.
+
+### 24시간 이후 재구매만 인정
+
+- Eligible customers: 78,505명
+- Repeat customers: 1,024명
+- Repeat rate: 1.30%
+
+기존 Target 대비 재구매 고객은 742명 감소하였다.
+
+이는 기존 Repeat 고객의 약 42.0%에 해당한다.
+
+### 해석
+
+초단기 주문을 제외하면 90일 재구매율은
+2.25%에서 1.38% 또는 1.30%까지 크게 감소한다.
+
+특히 1시간 이내 주문을 제외하는 것만으로
+재구매 고객 수가 약 38.7% 감소한다.
+
+반면 1시간 기준과 24시간 기준의 차이는
+58명, 재구매율 기준 약 0.08%p에 불과하다.
+
+이는 현재 `repeat_90d` Target의 상당 부분이
+첫 구매 직후 매우 짧은 시간 안에 발생하는
+추가 주문으로 구성되어 있음을 보여준다.
+
+이러한 주문이 장기적인 고객 Retention과 동일한 의미인지
+데이터만으로 확인할 수 없으므로,
+초단기 주문을 그대로 모델링 Target에 포함하는 것은
+CRM 활용 관점에서 주의가 필요하다.
+
+본 프로젝트에서는 모델링용 Primary Target으로
+첫 구매 승인 후 1시간을 초과한 시점부터
+90일 이내 발생한 추가 승인 주문을 사용하는 방향을 검토한다.
+
+기존 `repeat_90d`는 원래 정의에 대한
+Reference / Sensitivity Target으로 유지한다.
 
 ### 해석
 

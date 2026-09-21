@@ -161,7 +161,15 @@ Reason:
 
 Status:
 
-Confirmed
+Confirmed as Reference Target
+
+Note:
+
+Primary Modeling Target은 이후 D011의
+`repeat_90d_after_1h` 정의로 변경되었다.
+
+기존 `repeat_90d`는 Target Sensitivity와
+분석 설계 추적을 위한 Reference로 유지한다.
 
 ---
 
@@ -179,7 +187,13 @@ Reason:
 
 Status:
 
-Confirmed
+Superseded for Primary Modeling Target
+
+Note:
+
+Primary Modeling Target은 D011에 따라
+첫 구매 승인 후 1시간을 초과한 주문만
+재구매 후보로 인정한다.
 
 ---
 
@@ -207,27 +221,64 @@ Confirmed
 
 ---
 
-## D011 — 초단기 재구매 주문
+## D011 — Primary Modeling Target
 
 Decision:
 
-현재 Target을 변경하기 전에 첫 구매 이후 1시간, 24시간, 7일 이내 추가 주문 규모를 먼저 정량화한다.
+모델링용 Primary Target으로
+`repeat_90d_after_1h`을 사용한다.
+
+Definition:
+
+첫 번째 승인 주문 시점으로부터
+1시간을 초과한 시점부터 90일까지
+추가 승인 주문이 존재하면 1로 정의한다.
 
 Observed:
 
-- 1시간 이내: 711명
-- 24시간 이내: 773명
-- 7일 이내: 921명
+Reference `repeat_90d`:
+- Repeat customers: 1,766
+- Repeat rate: 2.25%
+
+After 1 hour:
+- Repeat customers: 1,082
+- Repeat rate: 1.38%
+
+After 24 hours:
+- Repeat customers: 1,024
+- Repeat rate: 1.30%
+
+Impact:
+
+1시간 이내 주문을 제외하면
+Positive 고객은 684명 감소하며
+기존 Positive 고객 대비 약 38.7% 감소한다.
+
+1시간에서 24시간까지 추가로 제외하면
+58명만 추가 감소하며
+재구매율 차이는 약 0.08%p이다.
 
 Reason:
 
-매우 짧은 간격의 추가 주문은 장기 Retention과 다른 행동일 가능성이 있지만, 데이터에서 그 원인을 직접 확인할 수 없다.
+초단기 추가 주문은 장기적인 CRM Retention과
+다른 행동을 포함하고 있을 가능성이 높다.
 
-1시간 또는 24시간 이내 주문을 제외했을 때 90일 재구매율이 얼마나 달라지는지 Sensitivity Analysis를 수행한 후 최종 Target 정책을 확정한다.
+데이터만으로 실제 주문 의도를 판별할 수는 없지만,
+1시간 이내 주문이 Target의 상당한 비중을 차지하는 반면
+1시간과 24시간 기준의 차이는 상대적으로 작았다.
+
+따라서 24시간보다 덜 강한 가정을 사용하는
+1시간을 Primary Modeling Boundary로 선택한다.
+
+이 Threshold는 모델 성능 최적화를 위해 선택한 것이 아니라
+Target을 비즈니스 목적과 정렬하기 위해
+모델링 이전에 확정한 정책이다.
+
+기존 `repeat_90d`는 Reference Target으로 유지한다.
 
 Status:
 
-Pending sensitivity review
+Confirmed
 
 ---
 

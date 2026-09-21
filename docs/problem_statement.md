@@ -42,21 +42,28 @@ Olist 데이터에서 반복 주문을 동일 고객으로 연결할 수 있는 
 
 ## 결과 변수
 
-첫 번째 승인 주문 이후 90일 이내 추가 승인 주문 발생 여부를 `repeat_90d`로 정의한다.
+Primary Modeling Target:
 
-`repeat_90d = 1`
+`repeat_90d_after_1h`
 
-첫 승인 주문 이후 90일 이내에 추가 payment-approved order가 존재한다.
+`repeat_90d_after_1h = 1`:
 
-`repeat_90d = 0`
+첫 번째 승인 주문 후 1시간을 초과한 시점부터
+90일 이내에 추가 payment-approved order가 존재한다.
 
-90일 전체 관찰 기간 동안 추가 payment-approved order가 존재하지 않는다.
+`repeat_90d_after_1h = 0`:
 
-관찰 기간을 완전히 확보할 수 없는 고객은 `repeat_90d = NULL`로 유지한다.
+90일 전체 Outcome Window를 관찰할 수 있고,
+1시간 초과 ~ 90일 구간에 추가 승인 주문이 없다.
 
-## 분석 대상 조건
+관찰 기간을 완전히 확보할 수 없는 고객은
+Target을 NULL로 유지한다.
 
-90일 Outcome Window를 완전히 관찰할 수 있는 고객만 90일 재구매율 계산과 모델링 대상에 포함한다.
+### Reference Target
+
+기존 `repeat_90d`는 첫 승인 주문 직후부터
+90일까지의 추가 주문을 포함하며
+Sensitivity Analysis 및 분석 설계 추적을 위해 유지한다.
 
 ## 비교 방법
 

@@ -108,6 +108,17 @@ Primary Key:
 
 `second_approved_at`과 `repeat_90d`는 Target 생성 및 검증을 위한 결과 정보이며 모델 Feature로 사용하지 않는다.
 
+| Field | 의미 |
+|---|---|
+| second_approved_at | 기존 Reference 정의에서 가장 빠른 추가 승인 주문 |
+| repeat_90d | 기존 0~90일 Reference Target |
+| second_approved_at_after_1h | 첫 승인 후 1시간을 초과한 가장 빠른 추가 승인 주문 |
+| repeat_90d_after_1h | Primary Modeling Target |
+
+`repeat_90d_after_1h`을 모델링 및 Primary Analysis Target으로 사용한다.
+
+`repeat_90d`는 Target Sensitivity와 설계 추적을 위한 Reference로 유지한다.
+
 ---
 
 ## First-Purchase Feature Base
