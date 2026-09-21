@@ -57,9 +57,9 @@ Primary Cohort 비교 기간:
 
 ### 분석 결과
 
-Primary 기간의 월별 90일 재구매율은 대략 1.5% ~ 3.4% 범위에서 움직였다.
+Primary 기간의 월별 90일 재구매율은 대략 0.92% ~ 1.93% 범위에서 움직였다.
 
-표본 규모가 더 안정적인 2017-02 이후 Cohort의 대부분은 약 1.5% ~ 2.9% 범위에 분포한다.
+표본 규모가 더 안정적인 2017-02 이후 Cohort의 대부분은 약 0.92% ~ 1.93% 범위에 분포한다.
 
 시간이 지날수록 재구매율이 지속적으로 상승하거나 지속적으로 하락하는 단순한 패턴은 확인되지 않았다.
 
@@ -73,28 +73,33 @@ Primary 기간의 월별 90일 재구매율은 대략 1.5% ~ 3.4% 범위에서 �
 
 ## 3. Repeat Timing
 
+Primary Target은 첫 승인 주문 후 1시간을 초과한
+추가 주문을 대상으로 한다.
+
 30일 재구매율:
 
-1.53%
-(90,718명 관찰 가능)
+0.72%
+(651 / 90,718명)
 
 60일 재구매율:
 
-1.92%
-(84,552명 관찰 가능)
+1.10%
+(928 / 84,552명)
 
 90일 재구매율:
 
-2.25%
-(78,505명 관찰 가능)
+1.38%
+(1,082 / 78,505명)
 
 ### 해석
 
-각 기간의 재구매율은 각각 해당 Outcome Window를 완전히 관찰할 수 있는 고객을 분모로 사용한다.
+각 기간의 재구매율은 해당 Outcome Window를 완전히 관찰할 수 있는 고객을 분모로 사용한다.
 
-따라서 30일, 60일, 90일 비율은 완전히 동일한 고객 집단의 단순 누적 분해값으로 해석하지 않는다.
+따라서 30일, 60일, 90일 결과는 동일한 분모를 사용하는 단순 누적 분해값으로 해석하지 않는다.
 
-90일 재구매 고객 1,766명의 첫 구매 이후 다음 승인 주문까지의 중앙값은 약 5.73일이다.
+Primary Target에서 90일 내 재구매한 1,082명의 다음 유효 승인 주문까지 걸린 시간 중앙값은 약 27.63일이다.
+
+이는 초단기 주문을 포함했던 Reference Target의 시간 분포와 크게 다르며, 1시간 제외 정책이 Target의 비즈니스 의미를 실질적으로 변경했음을 보여준다.
 
 ![Cumulative repeat rate](../reports/figures/cumulative_repeat_rate.png)
 
@@ -217,12 +222,12 @@ voucher는 1.77%, debit_card는 1.57%를 보였지만 두 집단의 표본 수�
 
 Examples:
 
-- cama_mesa_banho: 3.80% (n=7,323)
-- moveis_decoracao: 3.59% (n=5,147)
-- esporte_lazer: 2.85% (n=6,238)
-- telefonia: 1.41% (n=3,476)
-- eletronicos: 1.01% (n=2,086)
-- cool_stuff: 0.90% (n=3,219)
+- cama_mesa_banho: 2.06% (n=7,323)
+- moveis_decoracao: 1.81% (n=5,147)
+- esporte_lazer: 1.81% (n=6,238)
+- telefonia: 1.21% (n=3,476)
+- eletronicos: 0.82% (n=2,086)
+- cool_stuff: 0.65% (n=3,219)
 
 ### 해석
 
@@ -346,6 +351,60 @@ Near-Immediate Repeat Order를 최종 Target에
 
 결과가 확정되기 전까지
 기존 `repeat_90d` 정의를 유지한다.
+
+---
+
+## 8. Statistical Validation
+
+### Basket Size
+
+Single-Item:
+1.32%
+
+Multi-Item:
+1.93%
+
+Absolute Difference:
+0.61%p
+
+Relative Risk:
+1.463
+
+95% CI:
+4.3649
+
+Two-Proportion Z-Test:
+p = 1.2719
+
+Interpretation:
+Z가 1.96 보다 작으므로 Single-Item과 Multi-Item의 재구매율이 같다는 귀무가설을 기각하지 못하므로 그 차이가 통계적으로 유의하다고 볼 충분한 근거가 없다.
+
+### First Order Value
+
+Chi-Square:
+p = 0.8541
+
+Cramér's V:
+0.0032
+
+### Payment Type
+
+Chi-Square:
+p = 0.3008
+
+Cramér's V:
+0.0068
+
+### Product Category
+
+Analysis Population:
+n >= 500 categories
+
+Chi-Square:
+p = 2.6153
+
+Cramér's V:
+0.0362
 
 ---
 

@@ -98,21 +98,14 @@ Primary Key:
 |---|---|
 | customer_unique_id | 고객 분석 Key |
 | first_order_id | 최초 승인 주문 ID |
-| first_approved_at | 예측 기준 시점 |
+| first_approved_at | Prediction Snapshot |
 | first_purchase_month | 최초 구매 Cohort 월 |
-| observation_end | 승인 주문 기준 데이터 관찰 종료 시점 |
+| observation_end | 승인 주문 관찰 종료 시점 |
 | eligibility_cutoff | 90일 Outcome을 완전히 관찰 가능한 마지막 첫 구매 시점 |
 | is_eligible_90d | 90일 Outcome 관찰 가능 여부 |
-| second_approved_at | 90일 이내 가장 빠른 추가 승인 주문 시점 |
-| repeat_90d | 90일 재구매 Target |
-
-`second_approved_at`과 `repeat_90d`는 Target 생성 및 검증을 위한 결과 정보이며 모델 Feature로 사용하지 않는다.
-
-| Field | 의미 |
-|---|---|
-| second_approved_at | 기존 Reference 정의에서 가장 빠른 추가 승인 주문 |
-| repeat_90d | 기존 0~90일 Reference Target |
-| second_approved_at_after_1h | 첫 승인 후 1시간을 초과한 가장 빠른 추가 승인 주문 |
+| second_approved_at | Reference Target의 최초 추가 승인 주문 |
+| repeat_90d | 0~90일 Reference Target |
+| first_repeat_approved_at_after_1h | 첫 승인 후 1시간을 초과한 최초 유효 추가 주문 |
 | repeat_90d_after_1h | Primary Modeling Target |
 
 `repeat_90d_after_1h`을 모델링 및 Primary Analysis Target으로 사용한다.

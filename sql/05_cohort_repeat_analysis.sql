@@ -221,7 +221,7 @@ SELECT
 
     sum(
         CASE
-            WHEN c.repeat_90d = 1
+            WHEN c.repeat_90d_after_1h = 1
                 THEN 1
             ELSE 0
         END
@@ -252,12 +252,12 @@ SELECT
 FROM customer_repeat_90d_base
 
 WHERE
-    repeat_90d = 1
+    repeat_90d_after_1h = 1
 
 ORDER BY
     days_to_repeat;
 	
--- 즉시 재구매 Audit
+-- Reference Target 초단기 주문 Audit
 
 WITH repeat_interval AS (
 

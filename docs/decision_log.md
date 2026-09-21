@@ -356,3 +356,29 @@ Train / Validation / Test를 분리한 이후
 Status:
 
 Pending preprocessing decision
+
+## D015 — Statistical Interpretation Policy
+
+Decision:
+
+Feature와 Target의 관계는
+p-value만으로 판단하지 않는다.
+
+다음을 함께 확인한다.
+
+- Sample Size
+- Confidence Interval
+- Absolute Difference
+- Relative Difference
+- Effect Size
+- Business Relevance
+
+Reason:
+
+표본이 큰 데이터에서는
+실무적으로 작은 차이도 통계적으로
+유의하게 나타날 수 있기 때문이다.
+
+Status:
+
+Confirmed

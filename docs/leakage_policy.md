@@ -73,6 +73,8 @@
 - 리뷰 관련 정보
 - `second_approved_at`
 - `repeat_90d`
+- `first_repeat_approved_at_after_1h`
+- `repeat_90d_after_1h`
 
 ## 추가 검토 대상
 

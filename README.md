@@ -47,18 +47,32 @@ Brazilian E-Commerce Public Dataset by Olist
 11. 동일 CRM 처리 용량에서 Rule과 ML 비교
 12. Precision@K / Recall@K / Lift@K 기반 업무 가치 평가
 
-## 현재 핵심 지표
+## 현재 Primary Modeling Target
 
-90일 전체 관찰이 가능한 고객:
+90일 전체 Outcome을 관찰할 수 있는 고객:
+
 78,505명
 
-90일 이내 재구매 고객:
-1,766명
+Primary Modeling Target:
 
-90일 재구매율:
-2.25%
+첫 승인 주문 후 1시간을 초과한 시점부터
+90일 이내 추가 승인 주문 발생 여부
 
-Target이 매우 불균형하므로 Accuracy를 핵심 지표로 사용하지 않는다.
+Primary Repeat Customers:
+
+1,082명
+
+Primary Repeat Rate:
+
+1.38%
+
+Reference Target:
+
+첫 승인 주문 직후부터 90일까지의 기존 `repeat_90d`에서는 1,766명, 2.25%의 재구매율이 관측되었다.
+
+Target Sensitivity 분석 결과, 초단기 주문이 Reference Target의 상당 부분을 차지함을 확인했고 CRM Retention 목적에 맞추기 위해 `repeat_90d_after_1h`을 Primary Modeling Target으로 확정했다.
+
+Target이 매우 불균형하므로 Accuracy는 핵심 모델 평가 지표로 사용하지 않는다.
 
 ## 평가 기준
 
@@ -107,11 +121,15 @@ Raw Olist Data
 
 고객 분석 단위는 `customer_unique_id` 1명당 1행이다.
 
-## 현재 분석상 주의사항
+## Target 설계
 
-90일 재구매 고객 중 상당수가 첫 구매 직후 매우 짧은 시간 안에 추가 주문을 발생시키는 패턴이 확인되었다.
+초기 Reference Target에서는 첫 주문 후 1시간 이내의 추가 주문이 Positive Class의 상당 부분을 차지했다.
 
-이러한 주문이 장기적인 고객 유지 행동과 동일한 의미인지 데이터만으로 단정할 수 없으므로, 최종 모델링 Target 확정 전에 sensitivity analysis를 수행한다.
+Sensitivity Analysis 결과 1시간 제외 시 재구매율은 2.25%에서 1.38%로 감소했지만, 1시간 기준과 24시간 기준의 차이는 0.08%p에 그쳤다.
+
+이에 따라 1시간을 모델링용 경계로 확정했다.
+
+이 경계는 모델 성능을 높이기 위해 선택한 것이 아니라 CRM Retention이라는 비즈니스 질문과 Target 의미를 정렬하기 위해 모델링 전에 결정했다.
 
 ## 한계
 
