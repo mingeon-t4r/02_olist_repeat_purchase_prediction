@@ -131,6 +131,26 @@ Sensitivity Analysis 결과 1시간 제외 시 재구매율은 2.25%에서 1.38%
 
 이 경계는 모델 성능을 높이기 위해 선택한 것이 아니라 CRM Retention이라는 비즈니스 질문과 Target 의미를 정렬하기 위해 모델링 전에 결정했다.
 
+## 주요 모델링 결과
+
+Time-Based Validation을 사용해 Multi-Item Rule과 Logistic Regression을 비교하였다.
+
+### Validation — Same CRM Capacity
+
+- Multi-Item Rule: 43명 Repeat 포착
+- Logistic Regression: 39명 포착
+
+### Test — Same CRM Capacity
+
+동일하게 1,466명의 고객을 선정했을 때:
+
+- Multi-Item Rule: 32명 포착, Lift 1.53
+- Logistic Regression: 29명 포착, Lift 1.39
+
+기본 Logistic Regression은 가장 높은 확률의 고객군에서 일정한 Ranking 신호를 보였지만, 동일 운영 용량에서는 단순 Multi-Item Rule을 넘어서지 못했다.
+
+따라서 본 프로젝트에서는 모델 복잡성 자체보다 명확한 Business Baseline과 운영 용량 기준 평가가 중요하다는 결론을 얻었다.
+
 ## 한계
 
 - 데이터에서 최초로 관측된 구매가 고객 생애 전체의 최초 구매임을 보장하지 않는다.

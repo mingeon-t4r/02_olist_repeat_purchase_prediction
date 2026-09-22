@@ -163,6 +163,10 @@ Q1가 가장 높은 재구매율을 보였으며, Q3와 Q2는 Q1과 Q4보다 낮
 
 통계적 유의성은 아직 검증하지 않았다.
 
+통계 검증 결과, First Order Value Quartile과 재구매 여부 사이에서 통계적으로 유의한 관계는 확인되지 않았다(p = 0.8541, Cramér's V = 0.0032).
+
+따라서 첫 주문 금액만 이용한 단순 Rule의 고객 구분력은 제한적일 가능성이 있다.
+
 ![Repeat rate by first order value](../reports/figures/first_order_value_repeat_rate.png)
 
 ---
@@ -195,6 +199,10 @@ Multi-Item Order:
 
 또한 두 그룹의 표본 크기가 크게 다르므로 다음 단계에서 비율 차이에 대한 신뢰구간, 통계적 유의성 및 Effect Size를 함께 확인한다.
 
+이후 통계 검증에서도 두 그룹의 차이는 유의하게 나타났다(Z = 4.3649, p = 1.27e-05).
+
+다만 절대 차이는 0.61%p 수준이므로 통계적 유의성과 실제 효과 크기를 구분해 해석한다.
+
 ---
 
 ### 5.3 Payment Type
@@ -213,6 +221,8 @@ Primary Payment Type별 결과:
 voucher는 1.77%, debit_card는 1.57%를 보였지만 두 집단의 표본 수는 주요 결제 방식보다 작다.
 
 현재 차이는 기술적 관찰 수준이며, Payment Type을 의미 있는 구분 변수로 판단하기 전에 통계적 불확실성을 검증한다.
+
+통계 검증에서는 Payment Type과 재구매 여부 사이의 유의한 관계가 확인되지 않았다(p = 0.3008, Cramér's V = 0.0068).
 
 ---
 
@@ -240,6 +250,10 @@ Examples:
 현재 Category 값은 Olist 원본의 포르투갈어 Category Name을 사용하고 있다.
 
 향후 리포트 가독성을 위해 `category_translation`을 이용한 영문 Category를 추가할 수 있다.
+
+통계 검증에서는 Product Category와 재구매 여부 사이에 유의한 관계가 확인되었다(p < 0.001).
+
+다만 Cramér's V는 0.0362로 작아 전체적인 연관성의 크기는 약한 수준이다.
 
 ---
 
@@ -281,7 +295,7 @@ Primary Product Category 결측:
 
 결측값을 즉시 삭제하거나 평균 및 최빈값으로 임의 대체하지 않는다.
 
-먼저 원천 데이터에서 결측이 발생한 이유를 확인하고, Train / Validation / Test 분리 이후 전처리 Pipeline 안에서 처리 정책을 결정한다.
+Item 및 Payment 결측은 원천 데이터 레코드 부재에서 발생했음을 확인했으며, 모델링에서는 결측 고객을 일괄 제거하지 않고 Pipeline 내부에서 Missing Indicator 및 대체 정책을 적용한다.
 
 ---
 
@@ -417,6 +431,77 @@ Product Category와 90일 재구매 여부 사이에는 통계적으로 유의�
 따라서 Category는 모델 Feature 후보로 유지하지만, Category 하나만으로 고객을 강하게 구분할 수 있다고 해석하지 않는다.
 
 향후 시간 기반 Validation에서 다른 첫 구매 Feature와 함께 사용했을 때 실제 예측 성능에 기여하는지 확인한다.
+
+---
+
+## 9. Baseline Modeling
+
+첫 구매 시점 기준 Time-Based Split을 사용하여 Rule-Based Baseline과 Logistic Regression을 비교하였다.
+
+### Validation
+
+Logistic Regression:
+
+- PR-AUC: 0.0175
+- ROC-AUC: 0.5739
+- Top 10% Lift: 1.52
+
+동일 CRM Capacity 비교:
+
+- Multi-Item Rule: 43명의 Repeat 고객 포착
+- Logistic Regression: 39명 포착
+
+Lift:
+
+- Multi-Item Rule: 1.68
+- Logistic Regression: 1.52
+
+### Test
+
+Test Population:
+
+- Customers: 14,169
+- Repeat Customers: 202
+- Repeat Rate: 1.43%
+
+Logistic Regression:
+
+- Top 5% Lift: 1.68
+- Top 10% Lift: 1.44
+- Top 20% Lift: 1.09
+
+### Same-Capacity Test
+
+Multi-Item Rule이 선택한 고객:
+
+1,466명
+(Test Population의 약 10.35%)
+
+Multi-Item Rule:
+
+- Captured Repeat: 32
+- Precision: 2.18%
+- Recall: 15.84%
+- Lift: 1.53
+
+Logistic Regression:
+
+- Captured Repeat: 29
+- Precision: 1.98%
+- Recall: 14.36%
+- Lift: 1.39
+
+### 해석
+
+Validation과 Test 모두에서 Multi-Item Rule이 기본 Logistic Regression보다 동일한 CRM 처리 용량에서 더 많은 Repeat 고객을 포착하였다.
+
+따라서 현재 First-Purchase Feature Set에서는 복잡한 모델이 단순한 Basket Size Rule보다 추가적인 운영 가치를 제공하지 못했다.
+
+이는 모델의 복잡성 자체보다 명확한 Business Baseline과 동일한 운영 조건에서의 비교가 중요함을 보여준다.
+
+한편 Logistic Regression의 Test Top 5% Lift는 약 1.68로 나타나, 가장 높은 확률을 부여한 소수 고객군에는 일정한 Ranking 신호가 존재한다.
+
+향후에는 Feature Engineering 또는 비선형 모델을 통해 이러한 신호가 개선될 수 있는지 추가 검증할 수 있다.
 
 ---
 

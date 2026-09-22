@@ -436,3 +436,39 @@ Reason:
 Status:
 
 Confirmed
+
+## D016 — Temporal Validation Strategy
+
+Decision:
+
+모델 평가는 Random Split이 아니라 첫 구매 시점 기준 Time-Based Split을 사용한다.
+
+- Train: 2018-01-01 이전
+- Validation: 2018-01-01 ~ 2018-03-31
+- Test: 2018-04-01 이후 Eligibility Cutoff까지
+
+Reason:
+
+실제 운영에서는 과거 고객으로 모델을 구축하고 미래 고객에게 적용하므로, 시간 순서를 보존한 검증이 실제 사용 조건에 더 가깝다.
+
+Status:
+
+Confirmed
+
+---
+
+## D017 — Rule-Based Baseline
+
+Decision:
+
+첫 주문의 `first_item_count >= 2`인 Multi-Item 고객을 우선 선정하는 Rule을 주요 Rule-Based Baseline으로 사용한다.
+
+Reason:
+
+Basket Size는 사전 분석과 통계 검증에서 재구매율 차이가 확인되었으며, 운영상 설명이 쉬운 단순 고객 우선순위 규칙이다.
+
+모델의 가치는 이 Rule과 동일한 CRM 처리 용량에서 비교한다.
+
+Status:
+
+Confirmed
