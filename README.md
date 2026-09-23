@@ -85,9 +85,7 @@ Primary Metrics:
 Secondary Metrics:
 
 - PR-AUC
-- Precision
-- Recall
-- F1
+- ROC-AUC
 
 필요한 경우 확률 기반 운영을 위해 Calibration도 확인한다.
 
@@ -174,6 +172,7 @@ Final Logistic Regression은 Top 5% 고객군에서는 Lift 1.88의 Ranking 신�
 
 ## 상세 문서
 
+- [Project Summary](reports/project_summary.md)
 - [Problem Statement](docs/problem_statement.md)
 - [Analysis Findings](docs/analysis_findings.md)
 - [Modeling Results](docs/modeling_results.md)
@@ -206,3 +205,38 @@ Final Logistic Regression은 Top 5% 고객군에서는 Lift 1.88의 Ranking 신�
 
 ```bash
 pip install -r requirements.txt
+```
+
+SQLite Database 생성:
+
+```bash
+python src/build_database.py
+```
+
+Database 생성 후 SQL 파일을 번호 순서대로 실행한다.
+
+```text
+sql/01_order_base.sql
+sql/02_order_base_validation.sql
+sql/03_customer_repeat_90d_base.sql
+sql/04_customer_repeat_90d_validation.sql
+sql/05_cohort_repeat_analysis.sql
+sql/06_repeat_label_sensitivity.sql
+sql/07_first_purchase_feature_base.sql
+sql/08_first_purchase_feature_validation.sql
+sql/09_first_purchase_missing_audit.sql
+```
+
+분석 및 모델링 Notebook 역시 번호 순서대로 실행한다.
+
+```text
+notebooks/01_data_audit.ipynb
+notebooks/02_order_base_validation.ipynb
+notebooks/03_customer_repeat_90d_validation.ipynb
+notebooks/04_cohort_repeat_analysis.ipynb
+notebooks/05_first_purchase_feature_analysis.ipynb
+notebooks/06_statistical_validation.ipynb
+notebooks/07_baseline_modeling.ipynb
+```
+
+원본 CSV와 생성된 SQLite Database는 `.gitignore`를 통해 Git 관리 대상에서 제외한다.

@@ -131,3 +131,4 @@ Logistic Regression은 Top 5% 고객군에서는 일부 Ranking 신호를 보였
 - 예측 결과는 CRM 캠페인의 인과적 효과를 의미하지 않는다.
 - 캠페인의 실제 Incremental Effect는 별도의 실험이 필요하다.
 - 추가 Feature와 비선형 모델은 향후 확장 과제로 남긴다.
+- Feature 및 Rule 탐색의 일부가 Temporal Split 이전 전체 Eligible Population에서 수행되었으므로, Final Test는 시간 순서를 보존한 Out-of-Time Evaluation이지만 완전히 사전 격리된 Blind Holdout으로 해석하지 않는다.

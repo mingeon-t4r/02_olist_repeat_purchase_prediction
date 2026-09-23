@@ -87,9 +87,7 @@ Primary Metrics:
 Secondary Metrics:
 
 - PR-AUC
-- Precision
-- Recall
-- F1
+- ROC-AUC
 
 ## 한계
 

@@ -36,7 +36,7 @@ Primary Repeat Rate:
 약 98.62%의 Accuracy가 나오므로
 Accuracy는 주요 모델 평가 지표로 사용하지 않는다.
 
-향후 평가는 다음 지표를 중심으로 진행한다.
+모델 평가는 다음 지표를 중심으로 수행하였다.
 
 - PR-AUC
 - Precision@K
