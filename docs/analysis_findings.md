@@ -456,26 +456,33 @@ Lift:
 - Multi-Item Rule: 1.68
 - Logistic Regression: 1.52
 
-### Test
+### Final Test
 
-Test Population:
+Validation 이후 Train과 Validation을 결합한 64,336명의 Development Population으로 최종 Logistic Regression을 재학습하였다.
+
+Development:
+
+- Customers: 64,336
+- Repeat Customers: 880
+- Repeat Rate: 1.37%
+
+Test:
 
 - Customers: 14,169
 - Repeat Customers: 202
 - Repeat Rate: 1.43%
 
-Logistic Regression:
+Final Logistic Regression:
 
-- Top 5% Lift: 1.68
-- Top 10% Lift: 1.44
-- Top 20% Lift: 1.09
+- PR-AUC: 0.0169
+- ROC-AUC: 0.5264
+- Top 5% Lift: 1.88
+- Top 10% Lift: 1.19
+- Top 20% Lift: 1.19
 
 ### Same-Capacity Test
 
-Multi-Item Rule이 선택한 고객:
-
-1,466명
-(Test Population의 약 10.35%)
+동일하게 1,466명을 CRM 대상으로 선정했을 때:
 
 Multi-Item Rule:
 
@@ -484,24 +491,24 @@ Multi-Item Rule:
 - Recall: 15.84%
 - Lift: 1.53
 
-Logistic Regression:
+Final Logistic Regression:
 
-- Captured Repeat: 29
-- Precision: 1.98%
-- Recall: 14.36%
-- Lift: 1.39
+- Captured Repeat: 24
+- Precision: 1.64%
+- Recall: 11.88%
+- Lift: 1.15
 
 ### 해석
 
-Validation과 Test 모두에서 Multi-Item Rule이 기본 Logistic Regression보다 동일한 CRM 처리 용량에서 더 많은 Repeat 고객을 포착하였다.
+Validation과 Final Test 모두에서 Multi-Item Rule이 Logistic Regression보다 동일한 CRM 처리 용량에서 더 많은 Repeat 고객을 포착하였다.
 
-따라서 현재 First-Purchase Feature Set에서는 복잡한 모델이 단순한 Basket Size Rule보다 추가적인 운영 가치를 제공하지 못했다.
+특히 Final Test에서는 Rule이 Logistic Regression보다 8명의 Repeat 고객을 추가로 포착하였다.
 
-이는 모델의 복잡성 자체보다 명확한 Business Baseline과 동일한 운영 조건에서의 비교가 중요함을 보여준다.
+Final Logistic Regression의 전체적인 Ranking 구분력은 제한적이었지만, Top 5% 고객군에서는 Lift 1.88로 일부 예측 신호가 확인되었다.
 
-한편 Logistic Regression의 Test Top 5% Lift는 약 1.68로 나타나, 가장 높은 확률을 부여한 소수 고객군에는 일정한 Ranking 신호가 존재한다.
+그러나 대상 고객을 확대할수록 Lift가 약 1.19까지 감소하였다.
 
-향후에는 Feature Engineering 또는 비선형 모델을 통해 이러한 신호가 개선될 수 있는지 추가 검증할 수 있다.
+따라서 현재 Feature Set에서는 단순한 Multi-Item Rule이 보다 복잡한 Logistic Regression보다 실제 CRM 우선순위 설정에 더 효과적이었다.
 
 ---
 

@@ -469,6 +469,12 @@ Basket Size는 사전 분석과 통계 검증에서 재구매율 차이가 확�
 
 모델의 가치는 이 Rule과 동일한 CRM 처리 용량에서 비교한다.
 
+Evidence:
+
+Training Period에서도 Multi-Item 고객의 90일 재구매율은 1.73%로, Single-Item 고객의 1.37%보다 높게 나타났다.
+
+따라서 전체 탐색 분석에서 확인한 Basket Size 방향성이 Training Period에서도 동일하게 재확인되었다.
+
 Status:
 
 Confirmed

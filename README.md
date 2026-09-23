@@ -140,16 +140,16 @@ Time-Based Validation을 사용해 Multi-Item Rule과 Logistic Regression을 비
 - Multi-Item Rule: 43명 Repeat 포착
 - Logistic Regression: 39명 포착
 
-### Test — Same CRM Capacity
+### Final Test — Same CRM Capacity
 
 동일하게 1,466명의 고객을 선정했을 때:
 
 - Multi-Item Rule: 32명 포착, Lift 1.53
-- Logistic Regression: 29명 포착, Lift 1.39
+- Final Logistic Regression: 24명 포착, Lift 1.15
 
-기본 Logistic Regression은 가장 높은 확률의 고객군에서 일정한 Ranking 신호를 보였지만, 동일 운영 용량에서는 단순 Multi-Item Rule을 넘어서지 못했다.
+Final Logistic Regression은 Top 5% 고객군에서는 Lift 1.88의 Ranking 신호를 보였지만, 약 10%의 동일 운영 용량에서는 단순 Multi-Item Rule을 넘어서지 못했다.
 
-따라서 본 프로젝트에서는 모델 복잡성 자체보다 명확한 Business Baseline과 운영 용량 기준 평가가 중요하다는 결론을 얻었다.
+따라서 현재 First-Purchase Feature Set에서는 복잡한 모델 자체보다 해석 가능한 단순 Rule과 운영 용량 기준 평가가 더 효과적인 의사결정으로 이어졌다.
 
 ## 한계
 
