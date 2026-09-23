@@ -87,8 +87,6 @@ Secondary Metrics:
 - PR-AUC
 - ROC-AUC
 
-필요한 경우 확률 기반 운영을 위해 Calibration도 확인한다.
-
 ## 데이터 파이프라인
 
 Raw Olist Data
