@@ -134,6 +134,9 @@ Sensitivity Analysis 결과 1시간 제외 시 재구매율은 2.25%에서 1.38%
 ## 주요 모델링 결과
 
 Time-Based Validation을 사용해 Multi-Item Rule과 Logistic Regression을 비교하였다.
+![Final Test Lift Comparison](reports/figures/model_lift_comparison.png)
+
+동일 CRM 처리 용량에서 Multi-Item Rule은 32명의 Repeat 고객을 포착했고, Final Logistic Regression은 24명을 포착하였다.
 
 ### Validation — Same CRM Capacity
 
@@ -151,9 +154,55 @@ Final Logistic Regression은 Top 5% 고객군에서는 Lift 1.88의 Ranking 신�
 
 따라서 현재 First-Purchase Feature Set에서는 복잡한 모델 자체보다 해석 가능한 단순 Rule과 운영 용량 기준 평가가 더 효과적인 의사결정으로 이어졌다.
 
+## 핵심 결과 요약
+
+| 항목 | 결과 |
+|---|---:|
+| Modeling Population | 78,505 |
+| Primary Repeat Rate | 1.38% |
+| Final Test Population | 14,169 |
+| Final Test Repeat Rate | 1.43% |
+| Logistic PR-AUC | 0.0169 |
+| Logistic ROC-AUC | 0.5264 |
+| Logistic Top 5% Lift | 1.88 |
+| Multi-Item Rule Lift @ Same Capacity | 1.53 |
+| Logistic Lift @ Same Capacity | 1.15 |
+| Rule Captured Repeat | 32 |
+| Logistic Captured Repeat | 24 |
+
+> **Project Summary:** [reports/project_summary.md](reports/project_summary.md)
+
+## 상세 문서
+
+- [Problem Statement](docs/problem_statement.md)
+- [Analysis Findings](docs/analysis_findings.md)
+- [Modeling Results](docs/modeling_results.md)
+- [Decision Log](docs/decision_log.md)
+- [Feature Dictionary](docs/feature_dictionary.md)
+- [Data Dictionary](docs/data_dictionary.md)
+- [Leakage Policy](docs/leakage_policy.md)
+
 ## 한계
 
 - 데이터에서 최초로 관측된 구매가 고객 생애 전체의 최초 구매임을 보장하지 않는다.
 - 예측 가능성과 인과관계는 구분한다.
 - 높은 재구매 확률이 CRM 캠페인의 실제 증분 효과를 의미하지 않는다.
 - 캠페인의 인과적 효과를 평가하려면 별도의 실험 설계가 필요하다.
+
+## Reproducibility
+
+원본 Olist 데이터는 저장소에 포함하지 않는다.
+
+다음 CSV 파일을 `data/raw/`에 배치한다.
+
+- `olist_customers_dataset.csv`
+- `olist_orders_dataset.csv`
+- `olist_order_items_dataset.csv`
+- `olist_order_payments_dataset.csv`
+- `olist_products_dataset.csv`
+- `product_category_name_translation.csv`
+
+환경 설치:
+
+```bash
+pip install -r requirements.txt

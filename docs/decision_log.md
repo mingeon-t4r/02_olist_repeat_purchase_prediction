@@ -411,6 +411,8 @@ Status:
 
 Cause Confirmed / Preprocessing Policy Defined
 
+---
+
 ## D015 — Statistical Interpretation Policy
 
 Decision:
@@ -436,6 +438,8 @@ Reason:
 Status:
 
 Confirmed
+
+---
 
 ## D016 — Temporal Validation Strategy
 
@@ -463,17 +467,60 @@ Decision:
 
 첫 주문의 `first_item_count >= 2`인 Multi-Item 고객을 우선 선정하는 Rule을 주요 Rule-Based Baseline으로 사용한다.
 
+Evidence:
+
+Training Period에서도 Basket Size에 따른 재구매율 차이가 같은 방향으로 관측되었다.
+
+- Single-Item: 538 / 39,180 = 1.37%
+- Multi-Item: 74 / 4,274 = 1.73%
+
+따라서 전체 탐색 분석에서 확인한 Multi-Item 고객의 높은 재구매율 방향성이 Training Period에서도 재확인되었다.
+
 Reason:
 
 Basket Size는 사전 분석과 통계 검증에서 재구매율 차이가 확인되었으며, 운영상 설명이 쉬운 단순 고객 우선순위 규칙이다.
 
 모델의 가치는 이 Rule과 동일한 CRM 처리 용량에서 비교한다.
 
+Status:
+
+Confirmed
+
+---
+
+## D018 — Final Operational Comparison
+
+Decision:
+
+현재 First-Purchase Feature Set에서는 Final Logistic Regression을 Multi-Item Rule보다 우선적인 CRM Ranking 방법으로 채택하지 않는다.
+
 Evidence:
 
-Training Period에서도 Multi-Item 고객의 90일 재구매율은 1.73%로, Single-Item 고객의 1.37%보다 높게 나타났다.
+Final Test에서 동일하게 1,466명의 고객을 선정했을 때:
 
-따라서 전체 탐색 분석에서 확인한 Basket Size 방향성이 Training Period에서도 동일하게 재확인되었다.
+Multi-Item Rule:
+
+- Captured Repeat Customers: 32
+- Precision: 2.18%
+- Recall: 15.84%
+- Lift: 1.53
+
+Final Logistic Regression:
+
+- Captured Repeat Customers: 24
+- Precision: 1.64%
+- Recall: 11.88%
+- Lift: 1.15
+
+Final Logistic Regression은 Top 5%에서는 Lift 1.88을 기록했지만, CRM 대상을 약 10%까지 확대하면 Rule-Based Baseline보다 낮은 성능을 보였다.
+
+Interpretation:
+
+현재 Feature Set에서는 모델 복잡성을 증가시키는 것만으로 추가적인 운영 가치가 확보되지 않았다.
+
+따라서 현 단계에서는 해석 가능하고 운영이 단순한 Multi-Item Rule을 주요 Business Baseline으로 유지한다.
+
+향후 머신러닝 접근은 추가 Feature 또는 비선형 관계가 실질적인 Out-of-Time 성능 개선을 제공하는지 검증하는 방향으로 확장한다.
 
 Status:
 
