@@ -163,6 +163,7 @@
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LKO_RKR' />
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>selected_customers</remote-name>
@@ -176,6 +177,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>1</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>captured_repeat</remote-name>
@@ -189,6 +191,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>precision</remote-name>
@@ -202,6 +205,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>recall</remote-name>
@@ -215,6 +219,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>lift</remote-name>
@@ -228,6 +233,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
           </metadata-records>
         </connection>
@@ -565,7 +571,7 @@
         </metadata-records>
       </connection>
       <aliases enabled='yes' />
-      <column caption='Eligible Cusotmers' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
+      <column caption='Eligible Customers' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='countd([customer_unique_id])' />
       </column>
       <column caption='Repeat Customers' datatype='integer' name='[Calculation_0718030639861761]' role='measure' type='quantitative'>
@@ -1274,7 +1280,7 @@
             <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
-            <column caption='Eligible Cusotmers' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
+            <column caption='Eligible Customers' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='countd([customer_unique_id])' />
             </column>
             <column caption='Customer State' datatype='string' name='[customer_state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
@@ -2302,8 +2308,8 @@
           </layout-options>
           <size maxheight='1150' minheight='1150' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='43' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98898' id='42' param='vert' type-v2='layout-flow' w='99376' x='312' y='551'>
+            <zone h='100000' id='45' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98898' id='44' param='vert' type-v2='layout-flow' w='99376' x='312' y='551'>
                 <zone h='16467' id='13' type-v2='title' w='99376' x='312' y='551'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
