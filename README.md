@@ -168,6 +168,18 @@ Final Logistic Regression은 Top 5% 고객군에서는 Lift 1.88의 Ranking 신�
 
 > **Project Summary:** [reports/project_summary.md](reports/project_summary.md)
 
+## Tableau Dashboard
+
+고객의 첫 구매 특성, 90일 재구매율,
+그리고 동일 CRM 처리 용량에서의
+Rule-Based 방식과 Logistic Regression의
+Targeting 성과를 탐색할 수 있도록 Tableau Dashboard를 구성했습니다.
+
+![Repeat Purchase & CRM Targeting Dashboard](tableau/screenshots/repeat_purchase_targeting_dashboard.png)
+
+- [Tableau Public에서 대시보드 보기](https://public.tableau.com/views/OlistRepeatPurchaseCRMTargetingDashboard/RepeatPurchaseCRMTargetingDashboard?:language=ko-KR&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+- [Tableau 작업 상세](tableau/README.md)
+
 ## 상세 문서
 
 - [Project Summary](reports/project_summary.md)
