@@ -26,10 +26,248 @@
     <preference name='ui.shelf.height' value='26' />
   </preferences>
   <datasources>
-    <datasource caption='Cutomers Repeat Base' inline='true' name='federated.0bd34ui15f51jt169jo9j1njv08q' version='18.1'>
+    <datasource caption='Final Test Model Comparison' inline='true' name='federated.14u4gmq06wzje413p4jyy1aghvd6' version='18.1'>
       <connection class='federated'>
         <named-connections>
-          <named-connection caption='Cutomer Repeat Base' name='textscan.1crj5kq1jznxuy1h6t70v1r4dg9v'>
+          <named-connection caption='Final Test Model Comparison' name='textscan.0t9ek0l0yulxk91axbbo60tkhsxd'>
+            <connection class='textscan' directory='D:/Study/Projects/02_olist_repeat_purchase_prediction/data/processed' filename='tableau_model_comparison.csv' password='' server='' workgroup-auth-mode='as-is' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.0t9ek0l0yulxk91axbbo60tkhsxd' name='tableau_model_comparison.csv' table='[tableau_model_comparison#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='ko_KR' separator=','>
+            <column datatype='string' name='method' ordinal='0' />
+            <column datatype='integer' name='selected_customers' ordinal='1' />
+            <column datatype='integer' name='captured_repeat' ordinal='2' />
+            <column datatype='real' name='precision' ordinal='3' />
+            <column datatype='real' name='recall' ordinal='4' />
+            <column datatype='real' name='lift' ordinal='5' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[tableau_model_comparison.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;ko&quot;</attribute>
+              <attribute datatype='string' name='currency'>&quot;₩&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;ko_KR&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>method</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[method]</local-name>
+            <parent-name>[tableau_model_comparison.csv]</parent-name>
+            <remote-alias>method</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LKO_RKR' />
+            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>selected_customers</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[selected_customers]</local-name>
+            <parent-name>[tableau_model_comparison.csv]</parent-name>
+            <remote-alias>selected_customers</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>captured_repeat</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[captured_repeat]</local-name>
+            <parent-name>[tableau_model_comparison.csv]</parent-name>
+            <remote-alias>captured_repeat</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>precision</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[precision]</local-name>
+            <parent-name>[tableau_model_comparison.csv]</parent-name>
+            <remote-alias>precision</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recall</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[recall]</local-name>
+            <parent-name>[tableau_model_comparison.csv]</parent-name>
+            <remote-alias>recall</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>lift</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[lift]</local-name>
+            <parent-name>[tableau_model_comparison.csv]</parent-name>
+            <remote-alias>lift</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='tableau_model_comparison.csv' datatype='table' name='[__tableau_internal_object_id__].[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]' role='measure' type='quantitative' />
+      <column caption='Captured Repeat' datatype='integer' name='[captured_repeat]' role='measure' type='quantitative' />
+      <column caption='Lift' datatype='real' default-format='n#,##0.00;-#,##0.00' name='[lift]' role='measure' type='quantitative' />
+      <column caption='Method' datatype='string' name='[method]' role='dimension' type='nominal' />
+      <column caption='Precision' datatype='real' default-format='p0.00%' name='[precision]' role='measure' type='quantitative' />
+      <column datatype='real' default-format='p0.00%' name='[recall]' role='measure' type='quantitative' />
+      <column caption='Selected Customers' datatype='integer' name='[selected_customers]' role='measure' type='quantitative' />
+      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
+        <connection access_mode='readonly' author-locale='ko_KR' class='hyper' dbname='C:/Users/Kimt4/AppData/Local/Temp/TableauTemp/#TableauTemp_1uuu5zt07wvtzi14trxgl0m4z712.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='09/27/2026 07:27:18 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>method</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[method]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>method</remote-alias>
+              <ordinal>0</ordinal>
+              <family>tableau_model_comparison.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LKO_RKR' />
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>selected_customers</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[selected_customers]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>selected_customers</remote-alias>
+              <ordinal>1</ordinal>
+              <family>tableau_model_comparison.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>1</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>captured_repeat</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[captured_repeat]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>captured_repeat</remote-alias>
+              <ordinal>2</ordinal>
+              <family>tableau_model_comparison.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>precision</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[precision]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>precision</remote-alias>
+              <ordinal>3</ordinal>
+              <family>tableau_model_comparison.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>recall</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[recall]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>recall</remote-alias>
+              <ordinal>4</ordinal>
+              <family>tableau_model_comparison.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>lift</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[lift]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>lift</remote-alias>
+              <ordinal>5</ordinal>
+              <family>tableau_model_comparison.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;대한민국&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='tableau_model_comparison.csv' id='tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5'>
+            <properties context=''>
+              <relation connection='textscan.0t9ek0l0yulxk91axbbo60tkhsxd' name='tableau_model_comparison.csv' table='[tableau_model_comparison#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='ko_KR' separator=','>
+                  <column datatype='string' name='method' ordinal='0' />
+                  <column datatype='integer' name='selected_customers' ordinal='1' />
+                  <column datatype='integer' name='captured_repeat' ordinal='2' />
+                  <column datatype='real' name='precision' ordinal='3' />
+                  <column datatype='real' name='recall' ordinal='4' />
+                  <column datatype='real' name='lift' ordinal='5' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+    <datasource caption='Customer Repeat Base' inline='true' name='federated.0bd34ui15f51jt169jo9j1njv08q' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='Customer Repeat Base' name='textscan.1crj5kq1jznxuy1h6t70v1r4dg9v'>
             <connection class='textscan' directory='D:/Study/Projects/02_olist_repeat_purchase_prediction/data/processed' filename='tableau_customer_repeat_base.csv' password='' server='' workgroup-auth-mode='as-is' />
           </named-connection>
         </named-connections>
@@ -367,7 +605,7 @@
       <column caption='Purchase Weekday' datatype='integer' name='[purchase_weekday]' role='measure' type='quantitative' />
       <column caption='Repeat 90D After 1H' datatype='integer' name='[repeat_90d_after_1h]' role='measure' type='quantitative' />
       <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
-        <connection access_mode='readonly' author-locale='ko_KR' class='hyper' dbname='C:/Users/Kimt4/AppData/Local/Temp/TableauTemp/#TableauTemp_064c0pm02otdfh17ey7s70k2afvt.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='09/27/2026 04:28:20 AM' username='tableau_internal_user'>
+        <connection access_mode='readonly' author-locale='ko_KR' class='hyper' dbname='C:/Users/Kimt4/AppData/Local/Temp/TableauTemp/#TableauTemp_0ej5gqb0wfacwo1bepylv1qvee7i.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='09/27/2026 07:27:37 AM' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
           <metadata-records>
             <metadata-record class='column'>
@@ -383,6 +621,7 @@
               <approx-count>78505</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LKO_RKR' />
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_order_id</remote-name>
@@ -397,6 +636,7 @@
               <approx-count>78505</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LKO_RKR' />
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_approved_at</remote-name>
@@ -410,6 +650,7 @@
               <aggregation>Year</aggregation>
               <approx-count>74464</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>customer_state</remote-name>
@@ -421,9 +662,10 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>38</approx-count>
+              <approx-count>46</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LKO_RKR' />
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>purchase_weekday</remote-name>
@@ -437,6 +679,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>7</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>purchase_hour</remote-name>
@@ -450,6 +693,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>24</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_item_count</remote-name>
@@ -461,8 +705,9 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>6</approx-count>
+              <approx-count>17</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_distinct_product_count</remote-name>
@@ -474,8 +719,9 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>5</approx-count>
+              <approx-count>9</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_seller_count</remote-name>
@@ -489,6 +735,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>7</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_item_value</remote-name>
@@ -500,8 +747,9 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>real</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>3572</approx-count>
+              <approx-count>3696</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_freight_value</remote-name>
@@ -513,8 +761,9 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>real</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>5433</approx-count>
+              <approx-count>5972</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_order_value</remote-name>
@@ -526,8 +775,9 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>real</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>16191</approx-count>
+              <approx-count>16134</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_freight_ratio</remote-name>
@@ -539,8 +789,9 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>real</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>8265</approx-count>
+              <approx-count>8982</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_avg_item_price</remote-name>
@@ -552,8 +803,9 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>real</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>3208</approx-count>
+              <approx-count>3415</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_payment_type_count</remote-name>
@@ -567,6 +819,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_max_payment_installments</remote-name>
@@ -578,8 +831,9 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>31</approx-count>
+              <approx-count>36</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>primary_payment_type</remote-name>
@@ -594,6 +848,7 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LKO_RKR' />
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>first_category_count</remote-name>
@@ -607,6 +862,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>primary_category</remote-name>
@@ -618,9 +874,10 @@
               <family>tableau_customer_repeat_base.csv</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>130</approx-count>
+              <approx-count>115</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LKO_RKR' />
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>repeat_90d_after_1h</remote-name>
@@ -634,6 +891,7 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
+              <object-id>[tableau_customer_repeat_base.csv_FD9E07A5AA4744049F8DF125D618060C]</object-id>
             </metadata-record>
           </metadata-records>
         </connection>
@@ -707,251 +965,13 @@
         </objects>
       </object-graph>
     </datasource>
-    <datasource caption='Final Test Model Comparison' inline='true' name='federated.14u4gmq06wzje413p4jyy1aghvd6' version='18.1'>
-      <connection class='federated'>
-        <named-connections>
-          <named-connection caption='Final Test Model Comparison' name='textscan.0t9ek0l0yulxk91axbbo60tkhsxd'>
-            <connection class='textscan' directory='D:/Study/Projects/02_olist_repeat_purchase_prediction/data/processed' filename='tableau_model_comparison.csv' password='' server='' workgroup-auth-mode='as-is' />
-          </named-connection>
-        </named-connections>
-        <relation connection='textscan.0t9ek0l0yulxk91axbbo60tkhsxd' name='tableau_model_comparison.csv' table='[tableau_model_comparison#csv]' type='table'>
-          <columns character-set='UTF-8' header='yes' locale='ko_KR' separator=','>
-            <column datatype='string' name='method' ordinal='0' />
-            <column datatype='integer' name='selected_customers' ordinal='1' />
-            <column datatype='integer' name='captured_repeat' ordinal='2' />
-            <column datatype='real' name='precision' ordinal='3' />
-            <column datatype='real' name='recall' ordinal='4' />
-            <column datatype='real' name='lift' ordinal='5' />
-          </columns>
-        </relation>
-        <metadata-records>
-          <metadata-record class='capability'>
-            <remote-name />
-            <remote-type>0</remote-type>
-            <parent-name>[tableau_model_comparison.csv]</parent-name>
-            <remote-alias />
-            <aggregation>Count</aggregation>
-            <contains-null>true</contains-null>
-            <attributes>
-              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
-              <attribute datatype='string' name='collation'>&quot;ko&quot;</attribute>
-              <attribute datatype='string' name='currency'>&quot;₩&quot;</attribute>
-              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
-              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
-              <attribute datatype='string' name='locale'>&quot;ko_KR&quot;</attribute>
-              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
-            </attributes>
-          </metadata-record>
-          <metadata-record class='column'>
-            <remote-name>method</remote-name>
-            <remote-type>129</remote-type>
-            <local-name>[method]</local-name>
-            <parent-name>[tableau_model_comparison.csv]</parent-name>
-            <remote-alias>method</remote-alias>
-            <ordinal>0</ordinal>
-            <local-type>string</local-type>
-            <aggregation>Count</aggregation>
-            <scale>1</scale>
-            <width>1073741823</width>
-            <contains-null>true</contains-null>
-            <collation flag='0' name='LKO_RKR' />
-            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-          </metadata-record>
-          <metadata-record class='column'>
-            <remote-name>selected_customers</remote-name>
-            <remote-type>20</remote-type>
-            <local-name>[selected_customers]</local-name>
-            <parent-name>[tableau_model_comparison.csv]</parent-name>
-            <remote-alias>selected_customers</remote-alias>
-            <ordinal>1</ordinal>
-            <local-type>integer</local-type>
-            <aggregation>Sum</aggregation>
-            <contains-null>true</contains-null>
-            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-          </metadata-record>
-          <metadata-record class='column'>
-            <remote-name>captured_repeat</remote-name>
-            <remote-type>20</remote-type>
-            <local-name>[captured_repeat]</local-name>
-            <parent-name>[tableau_model_comparison.csv]</parent-name>
-            <remote-alias>captured_repeat</remote-alias>
-            <ordinal>2</ordinal>
-            <local-type>integer</local-type>
-            <aggregation>Sum</aggregation>
-            <contains-null>true</contains-null>
-            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-          </metadata-record>
-          <metadata-record class='column'>
-            <remote-name>precision</remote-name>
-            <remote-type>5</remote-type>
-            <local-name>[precision]</local-name>
-            <parent-name>[tableau_model_comparison.csv]</parent-name>
-            <remote-alias>precision</remote-alias>
-            <ordinal>3</ordinal>
-            <local-type>real</local-type>
-            <aggregation>Sum</aggregation>
-            <contains-null>true</contains-null>
-            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-          </metadata-record>
-          <metadata-record class='column'>
-            <remote-name>recall</remote-name>
-            <remote-type>5</remote-type>
-            <local-name>[recall]</local-name>
-            <parent-name>[tableau_model_comparison.csv]</parent-name>
-            <remote-alias>recall</remote-alias>
-            <ordinal>4</ordinal>
-            <local-type>real</local-type>
-            <aggregation>Sum</aggregation>
-            <contains-null>true</contains-null>
-            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-          </metadata-record>
-          <metadata-record class='column'>
-            <remote-name>lift</remote-name>
-            <remote-type>5</remote-type>
-            <local-name>[lift]</local-name>
-            <parent-name>[tableau_model_comparison.csv]</parent-name>
-            <remote-alias>lift</remote-alias>
-            <ordinal>5</ordinal>
-            <local-type>real</local-type>
-            <aggregation>Sum</aggregation>
-            <contains-null>true</contains-null>
-            <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-          </metadata-record>
-        </metadata-records>
-      </connection>
-      <aliases enabled='yes' />
-      <column caption='tableau_model_comparison.csv' datatype='table' name='[__tableau_internal_object_id__].[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]' role='measure' type='quantitative' />
-      <column caption='Captured Repeat' datatype='integer' name='[captured_repeat]' role='measure' type='quantitative' />
-      <column caption='Lift' datatype='real' default-format='n#,##0.00;-#,##0.00' name='[lift]' role='measure' type='quantitative' />
-      <column caption='Method' datatype='string' name='[method]' role='dimension' type='nominal' />
-      <column caption='Precision' datatype='real' default-format='p0.00%' name='[precision]' role='measure' type='quantitative' />
-      <column datatype='real' default-format='p0.00%' name='[recall]' role='measure' type='quantitative' />
-      <column caption='Selected Customers' datatype='integer' name='[selected_customers]' role='measure' type='quantitative' />
-      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
-        <connection access_mode='readonly' author-locale='ko_KR' class='hyper' dbname='C:/Users/Kimt4/AppData/Local/Temp/TableauTemp/#TableauTemp_1lrbp8n1po5t7p11eeezp06a4v46.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='09/27/2026 06:41:31 AM' username='tableau_internal_user'>
-          <relation name='Extract' table='[Extract].[Extract]' type='table' />
-          <metadata-records>
-            <metadata-record class='column'>
-              <remote-name>method</remote-name>
-              <remote-type>129</remote-type>
-              <local-name>[method]</local-name>
-              <parent-name>[Extract]</parent-name>
-              <remote-alias>method</remote-alias>
-              <ordinal>0</ordinal>
-              <family>tableau_model_comparison.csv</family>
-              <local-type>string</local-type>
-              <aggregation>Count</aggregation>
-              <approx-count>2</approx-count>
-              <contains-null>true</contains-null>
-              <collation flag='0' name='LKO_RKR' />
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-            </metadata-record>
-            <metadata-record class='column'>
-              <remote-name>selected_customers</remote-name>
-              <remote-type>20</remote-type>
-              <local-name>[selected_customers]</local-name>
-              <parent-name>[Extract]</parent-name>
-              <remote-alias>selected_customers</remote-alias>
-              <ordinal>1</ordinal>
-              <family>tableau_model_comparison.csv</family>
-              <local-type>integer</local-type>
-              <aggregation>Sum</aggregation>
-              <approx-count>1</approx-count>
-              <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-            </metadata-record>
-            <metadata-record class='column'>
-              <remote-name>captured_repeat</remote-name>
-              <remote-type>20</remote-type>
-              <local-name>[captured_repeat]</local-name>
-              <parent-name>[Extract]</parent-name>
-              <remote-alias>captured_repeat</remote-alias>
-              <ordinal>2</ordinal>
-              <family>tableau_model_comparison.csv</family>
-              <local-type>integer</local-type>
-              <aggregation>Sum</aggregation>
-              <approx-count>2</approx-count>
-              <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-            </metadata-record>
-            <metadata-record class='column'>
-              <remote-name>precision</remote-name>
-              <remote-type>5</remote-type>
-              <local-name>[precision]</local-name>
-              <parent-name>[Extract]</parent-name>
-              <remote-alias>precision</remote-alias>
-              <ordinal>3</ordinal>
-              <family>tableau_model_comparison.csv</family>
-              <local-type>real</local-type>
-              <aggregation>Sum</aggregation>
-              <approx-count>2</approx-count>
-              <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-            </metadata-record>
-            <metadata-record class='column'>
-              <remote-name>recall</remote-name>
-              <remote-type>5</remote-type>
-              <local-name>[recall]</local-name>
-              <parent-name>[Extract]</parent-name>
-              <remote-alias>recall</remote-alias>
-              <ordinal>4</ordinal>
-              <family>tableau_model_comparison.csv</family>
-              <local-type>real</local-type>
-              <aggregation>Sum</aggregation>
-              <approx-count>2</approx-count>
-              <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-            </metadata-record>
-            <metadata-record class='column'>
-              <remote-name>lift</remote-name>
-              <remote-type>5</remote-type>
-              <local-name>[lift]</local-name>
-              <parent-name>[Extract]</parent-name>
-              <remote-alias>lift</remote-alias>
-              <ordinal>5</ordinal>
-              <family>tableau_model_comparison.csv</family>
-              <local-type>real</local-type>
-              <aggregation>Sum</aggregation>
-              <approx-count>2</approx-count>
-              <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
-            </metadata-record>
-          </metadata-records>
-        </connection>
-      </extract>
-      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
-      <semantic-values>
-        <semantic-value key='[Country].[Name]' value='&quot;대한민국&quot;' />
-      </semantic-values>
-      <object-graph>
-        <objects>
-          <object caption='tableau_model_comparison.csv' id='tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5'>
-            <properties context=''>
-              <relation connection='textscan.0t9ek0l0yulxk91axbbo60tkhsxd' name='tableau_model_comparison.csv' table='[tableau_model_comparison#csv]' type='table'>
-                <columns character-set='UTF-8' header='yes' locale='ko_KR' separator=','>
-                  <column datatype='string' name='method' ordinal='0' />
-                  <column datatype='integer' name='selected_customers' ordinal='1' />
-                  <column datatype='integer' name='captured_repeat' ordinal='2' />
-                  <column datatype='real' name='precision' ordinal='3' />
-                  <column datatype='real' name='recall' ordinal='4' />
-                  <column datatype='real' name='lift' ordinal='5' />
-                </columns>
-              </relation>
-            </properties>
-            <properties context='extract'>
-              <relation name='Extract' table='[Extract].[Extract]' type='table' />
-            </properties>
-          </object>
-        </objects>
-      </object-graph>
-    </datasource>
   </datasources>
   <worksheets>
     <worksheet name='Basket Size Repeat Rate'>
       <table>
         <view>
           <datasources>
-            <datasource caption='Cutomers Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
+            <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
             <column caption='Repeat Rate' datatype='real' default-format='p0.00%' name='[Calculation_0718030640652290]' role='measure' type='quantitative'>
@@ -1257,7 +1277,7 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='Cutomers Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
+            <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
             <column caption='Eligible Cusotmer' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
@@ -1437,7 +1457,7 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='Cutomers Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
+            <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
             <column caption='Repeat Rate' datatype='real' default-format='p0.00%' name='[Calculation_0718030640652290]' role='measure' type='quantitative'>
@@ -1627,7 +1647,7 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='Cutomers Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
+            <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
             <column caption='Repeat Customer' datatype='integer' name='[Calculation_0718030639861761]' role='measure' type='quantitative'>
@@ -1807,7 +1827,7 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='Cutomers Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
+            <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
             <column caption='Repeat Rate' datatype='real' default-format='p0.00%' name='[Calculation_0718030640652290]' role='measure' type='quantitative'>
@@ -2110,7 +2130,7 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='Cutomers Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
+            <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
             <column caption='Repeat Rate' datatype='real' default-format='p0.00%' name='[Calculation_0718030640652290]' role='measure' type='quantitative'>
@@ -2288,8 +2308,8 @@
           </layout-options>
           <size maxheight='1150' minheight='1150' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='37' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98898' id='36' param='vert' type-v2='layout-flow' w='99376' x='312' y='551'>
+            <zone h='100000' id='41' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98898' id='40' param='vert' type-v2='layout-flow' w='99376' x='312' y='551'>
                 <zone h='16467' id='13' type-v2='title' w='99376' x='312' y='551'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2406,7 +2426,7 @@
     </dashboard>
   </dashboards>
   <windows saved-dpi-scale-factor='1.5' source-height='75'>
-    <window class='worksheet' name='KPI - Eligible Customers'>
+    <window class='worksheet' maximized='true' name='KPI - Eligible Customers'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -2635,7 +2655,7 @@
       </viewpoint>
       <simple-id uuid='{1D421CE0-BD05-40E3-A8C4-06A8BA47D152}' />
     </window>
-    <window class='dashboard' maximized='true' name='Repeat Purchase &amp; CRM Targeting Dashboard'>
+    <window class='dashboard' name='Repeat Purchase &amp; CRM Targeting Dashboard'>
       <viewpoints>
         <viewpoint name='Basket Size Repeat Rate' />
         <viewpoint name='Captured Repeat Comparison' />
@@ -3133,106 +3153,105 @@
       YG1tDblcDoqisHr1ak06xubcunULCQkJRACEzs3bHwZks9kG0yZSFIWXL19CpVJpvrhjaEVZ
       pVKByWQSARBMG+IDEEya/wNaemahC1vo5wAAAABJRU5ErkJggg==
     </thumbnail>
-    <thumbnail height='135' name='Lift Comparison' width='192'>
-      iVBORw0KGgoAAAANSUhEUgAAAMAAAACHCAYAAABAgVbTAAAACXBIWXMAABYlAAAWJQFJUiTw
-      AAAUX0lEQVR4nO2de1hU17mH3zqC3EG8IQhxEBGFIAYQNdqiEhOMRhP7HKuJ1edQpZ6mxdpY
+    <thumbnail height='134' name='Lift Comparison' width='192'>
+      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
-      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
+      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
-      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
-      gg==
+      kkYIQCBphAAEkkYIQCBphAAEkkYIQCBphAAEkub/AZv/tPGHNwf/AAAAAElFTkSuQmCC
     </thumbnail>
     <thumbnail height='192' name='Monthly Repeat Rate' width='192'>
       iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAABYlAAAWJQFJUiTw
