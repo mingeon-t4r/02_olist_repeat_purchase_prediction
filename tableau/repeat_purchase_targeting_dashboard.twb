@@ -163,7 +163,6 @@
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LKO_RKR' />
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>selected_customers</remote-name>
@@ -177,7 +176,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>1</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>captured_repeat</remote-name>
@@ -191,7 +189,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>precision</remote-name>
@@ -205,7 +202,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>recall</remote-name>
@@ -219,7 +215,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>lift</remote-name>
@@ -233,7 +228,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[tableau_model_comparison.csv_B76A73DBDDE64779AAC97C3DA6A88DD5]</object-id>
             </metadata-record>
           </metadata-records>
         </connection>
@@ -571,10 +565,10 @@
         </metadata-records>
       </connection>
       <aliases enabled='yes' />
-      <column caption='Eligible Cusotmer' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
+      <column caption='Eligible Cusotmers' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='countd([customer_unique_id])' />
       </column>
-      <column caption='Repeat Customer' datatype='integer' name='[Calculation_0718030639861761]' role='measure' type='quantitative'>
+      <column caption='Repeat Customers' datatype='integer' name='[Calculation_0718030639861761]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='SUM([repeat_90d_after_1h])' />
       </column>
       <column caption='Repeat Rate' datatype='real' default-format='p0.00%' name='[Calculation_0718030640652290]' role='measure' type='quantitative'>
@@ -1280,7 +1274,7 @@
             <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
-            <column caption='Eligible Cusotmer' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
+            <column caption='Eligible Cusotmers' datatype='integer' name='[Calculation_0718030639546368]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='countd([customer_unique_id])' />
             </column>
             <column caption='Customer State' datatype='string' name='[customer_state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
@@ -1643,14 +1637,14 @@
       </table>
       <simple-id uuid='{6C9D14CB-9AA4-4D6B-8823-CCEBA9D1D42E}' />
     </worksheet>
-    <worksheet name='KPI - Repeat Cusotmers'>
+    <worksheet name='KPI - Repeat Customers'>
       <table>
         <view>
           <datasources>
             <datasource caption='Customer Repeat Base' name='federated.0bd34ui15f51jt169jo9j1njv08q' />
           </datasources>
           <datasource-dependencies datasource='federated.0bd34ui15f51jt169jo9j1njv08q'>
-            <column caption='Repeat Customer' datatype='integer' name='[Calculation_0718030639861761]' role='measure' type='quantitative'>
+            <column caption='Repeat Customers' datatype='integer' name='[Calculation_0718030639861761]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='SUM([repeat_90d_after_1h])' />
             </column>
             <column caption='Customer State' datatype='string' name='[customer_state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
@@ -2207,7 +2201,7 @@
                     <format attr='margin' value='4' />
                   </zone-style>
                 </zone>
-                <zone h='13085' id='16' name='KPI - Repeat Cusotmers' show-title='false' w='24844' x='25156' y='17011'>
+                <zone h='13085' id='16' name='KPI - Repeat Customers' show-title='false' w='24844' x='25156' y='17011'>
                   <layout-cache fixed-size-h='334' fixed-size-w='60' type-h='fixed' type-w='fixed' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2308,8 +2302,8 @@
           </layout-options>
           <size maxheight='1150' minheight='1150' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='41' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98898' id='40' param='vert' type-v2='layout-flow' w='99376' x='312' y='551'>
+            <zone h='100000' id='43' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98898' id='42' param='vert' type-v2='layout-flow' w='99376' x='312' y='551'>
                 <zone h='16467' id='13' type-v2='title' w='99376' x='312' y='551'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2329,7 +2323,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='66' h='13085' id='16' is-fixed='true' name='KPI - Repeat Cusotmers' show-title='false' w='24844' x='25156' y='17011'>
+                <zone fixed-size='66' h='13085' id='16' is-fixed='true' name='KPI - Repeat Customers' show-title='false' w='24844' x='25156' y='17011'>
                   <layout-cache fixed-size-h='334' fixed-size-w='60' type-h='fixed' type-w='fixed' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2426,7 +2420,7 @@
     </dashboard>
   </dashboards>
   <windows saved-dpi-scale-factor='1.5' source-height='75'>
-    <window class='worksheet' maximized='true' name='KPI - Eligible Customers'>
+    <window class='worksheet' name='KPI - Eligible Customers'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -2456,7 +2450,7 @@
       </viewpoint>
       <simple-id uuid='{C4AD7857-556C-433C-A28E-E5597E6AB75B}' />
     </window>
-    <window class='worksheet' name='KPI - Repeat Cusotmers'>
+    <window class='worksheet' name='KPI - Repeat Customers'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -2655,13 +2649,13 @@
       </viewpoint>
       <simple-id uuid='{1D421CE0-BD05-40E3-A8C4-06A8BA47D152}' />
     </window>
-    <window class='dashboard' name='Repeat Purchase &amp; CRM Targeting Dashboard'>
+    <window class='dashboard' maximized='true' name='Repeat Purchase &amp; CRM Targeting Dashboard'>
       <viewpoints>
         <viewpoint name='Basket Size Repeat Rate' />
         <viewpoint name='Captured Repeat Comparison' />
         <viewpoint name='KPI - Eligible Customers' />
         <viewpoint name='KPI - Multi-Item Repeat Rate' />
-        <viewpoint name='KPI - Repeat Cusotmers' />
+        <viewpoint name='KPI - Repeat Customers' />
         <viewpoint name='KPI - Repeat Rate' />
         <viewpoint name='Lift Comparison' />
         <viewpoint name='Monthly Repeat Rate'>
@@ -2974,7 +2968,7 @@
       CLImAiDImgiAIGsiAIKsiQAIsiYCIMiaCIAgayIAgqyJAAiyJgIgyJoIgCBrIgCCrIkACLIm
       AiDImgiAIGv/AzVpsvGXoh6hAAAAAElFTkSuQmCC
     </thumbnail>
-    <thumbnail height='71' name='KPI - Repeat Cusotmers' width='192'>
+    <thumbnail height='71' name='KPI - Repeat Customers' width='192'>
       iVBORw0KGgoAAAANSUhEUgAAAMAAAABHCAYAAABRaUhnAAAACXBIWXMAABYlAAAWJQFJUiTw
       AAAQQElEQVR4nO2ce0yT1xvHPxak2GJLNaipisYVFXVqZENnhE2jjrE5jbdodMQYwnRRh6iJ
       l+nwMnVz0en8A50u3i9DFzcVCSLibd6ScRmKkyoKpSoUSyuXArX7/bHQUNsi3oD9ej4JCXnP
