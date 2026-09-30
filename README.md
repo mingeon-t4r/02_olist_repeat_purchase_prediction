@@ -6,6 +6,19 @@
 
 단순히 예측 정확도를 높이는 것이 목적이 아니라, 제한된 CRM 운영 자원 아래에서 머신러닝 기반 고객 우선순위가 단순 규칙 기반 방식보다 실제 재구매 고객을 더 효과적으로 선별할 수 있는지를 비교하는 것을 목표로 한다.
 
+## At a Glance
+
+- **Business Question:** 첫 구매 시점의 정보만으로 90일 재구매 가능 고객을 우선 선별할 수 있는가?
+- **Decision User:** CRM / Retention Manager
+- **Analysis Grain:** `1 row = 1 customer_unique_id`
+- **Primary Target:** 첫 승인 주문 후 1시간 초과 ~ 90일 이내 추가 승인 주문 여부
+- **Modeling Population:** 78,505 customers
+- **Primary Repeat Rate:** 1.38%
+- **Evaluation:** Precision@K, Recall@K, Lift@K, PR-AUC, ROC-AUC
+- **Key Result:** 동일하게 1,466명을 선정했을 때 Multi-Item Rule은 32명, Logistic Regression은 24명의 Repeat 고객을 포착했다.
+- **Tools:** SQL, SQLite, Python, pandas, SciPy, scikit-learn, Tableau
+- **Dashboard:** [Tableau Public](https://public.tableau.com/views/OlistRepeatPurchaseCRMTargetingDashboard/RepeatPurchaseCRMTargetingDashboard?:language=ko-KR&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link) · [Tableau Documentation](tableau/README.md)
+
 ## 비즈니스 질문
 
 첫 구매 시점까지 알 수 있는 정보만으로 향후 90일 이내 재구매 고객을 식별할 수 있는가?
@@ -148,7 +161,9 @@ Time-Based Validation을 사용해 Multi-Item Rule과 Logistic Regression을 비
 
 Final Logistic Regression은 Top 5% 고객군에서는 Lift 1.88의 Ranking 신호를 보였지만, 약 10%의 동일 운영 용량에서는 단순 Multi-Item Rule을 넘어서지 못했다.
 
-따라서 현재 First-Purchase Feature Set에서는 복잡한 모델 자체보다 해석 가능한 단순 Rule과 운영 용량 기준 평가가 더 효과적인 의사결정으로 이어졌다.
+따라서 **현재 First-Purchase Feature Set과 동일 CRM 운영 용량 조건에서는** 해석 가능한 Multi-Item Rule이 Logistic Regression보다 더 많은 Repeat 고객을 포착했다.
+
+이는 머신러닝 모델이 일반적으로 Rule보다 열등하다는 의미가 아니라, 현재 Feature Set과 운영 조건에서 확인된 결과이다.
 
 ## 핵심 결과 요약
 
